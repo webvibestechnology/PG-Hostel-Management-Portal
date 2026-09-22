@@ -1,0 +1,600 @@
+{
+  "info": {
+    "_postman_id": "pg-management-api-local",
+    "name": "PG-Management-API",
+    "description": "Postman collection generated from the PG-Management-API Native Git local collection.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Admin Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/admin/login"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"admin123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Get All Hostels",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/hostels"
+        }
+      }
+    },
+    {
+      "name": "Get All Rooms",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/rooms"
+        }
+      }
+    },
+    {
+      "name": "Get All Beds",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/beds"
+        }
+      }
+    },
+    {
+      "name": "Get All Tenants",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/tenants"
+        }
+      }
+    },
+    {
+      "name": "Get All Allocations",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/allocations"
+        }
+      }
+    },
+    {
+      "name": "Get All Payments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/payments"
+        }
+      }
+    },
+    {
+      "name": "Get All Complaints",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/complaints"
+        }
+      }
+    },
+    {
+      "name": "Get All Visitors",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/visitors"
+        }
+      }
+    },
+    {
+      "name": "Get Available Beds",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/beds/available"
+        }
+      }
+    },
+    {
+      "name": "Create Hostel",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/hostels"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Room",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/rooms"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"hostelId\": 1,\r\n  \"roomNumber\": \"102\",\r\n  \"roomType\": \"DOUBLE\",\r\n  \"floor\": 1,\r\n  \"status\": \"AVAILABLE\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Bed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/beds"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"roomId\": 1,\r\n  \"bedNumber\": \"B2\",\r\n  \"status\": \"AVAILABLE\",\r\n  \"price\": 5000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Tenant",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/tenants"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Test Tenant\",\r\n  \"email\": \"testtenant@gmail.com\",\r\n  \"phone\": \"9876543200\",\r\n  \"address\": \"Akola\",\r\n  \"aadhaarNumber\": \"123456789013\",\r\n  \"emergencyContact\": \"9876543201\",\r\n  \"joinDate\": \"2026-09-20\",\r\n  \"status\": \"ACTIVE\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Allocation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/allocations"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"tenantId\": 1,\r\n  \"bedId\": 1,\r\n  \"startDate\": \"2026-09-20\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Vacate Allocation",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/allocations/1/vacate"
+        }
+      }
+    },
+    {
+      "name": "Create Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/payments"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"tenantId\": 1,\r\n  \"amount\": 5000,\r\n  \"paymentDate\": \"2026-09-20T10:00:00\",\r\n  \"amountPaid\": 5000,\r\n  \"paymentMode\": \"UPI\",\r\n  \"status\": \"PENDING\",\r\n  \"remarks\": \"October rent\",\r\n  \"transactionId\": \"TXN002\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Update Payment",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/payments/1"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"PAID\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Complaint",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/complaints"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"tenantId\": 1,\r\n  \"title\": \"Electricity Problem\",\r\n  \"description\": \"Fan is not working properly\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Update Complaint Status",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/complaints/1/status"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"IN_PROGRESS\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Notice",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/notices"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Important Notice\",\r\n  \"content\": \"Monthly maintenance meeting will be held on Sunday.\",\r\n  \"createdBy\": 1,\r\n  \"targetAudience\": \"ALL\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Visitor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/visitors"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"tenantId\": 1,\r\n  \"visitorname\": \"Test Visitor\",\r\n  \"visitorPhone\": \"9876543213\",\r\n  \"purpose\": \"Meeting\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Get Hostel By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/hostels/1"
+        }
+      }
+    },
+    {
+      "name": "Get Room By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/rooms/1"
+        }
+      }
+    },
+    {
+      "name": "Get Bed By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/beds/1"
+        }
+      }
+    },
+    {
+      "name": "Get Tenant By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/tenants/1"
+        }
+      }
+    },
+    {
+      "name": "Get Allocation By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/allocations/1"
+        }
+      }
+    },
+    {
+      "name": "Get Payment By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/payments/1"
+        }
+      }
+    },
+    {
+      "name": "Get Complaint By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/complaints/1"
+        }
+      }
+    },
+    {
+      "name": "Get Visitor By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/visitors/1"
+        }
+      }
+    },
+    {
+      "name": "Get Beds By Room",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/beds/room/1"
+        }
+      }
+    },
+    {
+      "name": "Get Active Tenants",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/tenants/active"
+        }
+      }
+    },
+    {
+      "name": "Get Allocations By Tenant",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/allocations/tenant/1"
+        }
+      }
+    },
+    {
+      "name": "Get Payments By Tenant",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/payments/tenant/1"
+        }
+      }
+    },
+    {
+      "name": "Get Pending Payments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/payments/pending"
+        }
+      }
+    },
+    {
+      "name": "Get Open Complaints",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/complaints/open"
+        }
+      }
+    },
+    {
+      "name": "Get Notices",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/notices"
+        }
+      }
+    },
+    {
+      "name": "Get Notice By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/notices/1"
+        }
+      }
+    },
+    {
+      "name": "Get Visitors By Tenant",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/visitors/tenant/1"
+        }
+      }
+    },
+    {
+      "name": "Checkout Visitor",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/visitors/1/checkout"
+        }
+      }
+    },
+    {
+      "name": "Delete Notice",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/notices/1"
+        }
+      }
+    }
+  ]
+}

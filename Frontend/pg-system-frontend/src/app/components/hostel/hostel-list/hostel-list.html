@@ -1,1 +1,71 @@
-<p>hostel-list works!</p>
+<div class="hostel-container">
+
+  <div class="page-header">
+    <h2>Hostels</h2>
+
+    <a
+      routerLink="/dashboard/hostels/add"
+      class="add-button">
+      + Add Hostel
+    </a>
+  </div>
+
+  <div class="table-container">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Total Rooms</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let hostel of hostels">
+
+          <td>{{ hostel.name }}</td>
+
+          <td>{{ hostel.address }}</td>
+
+          <td>{{ hostel.phone }}</td>
+
+          <td>{{ hostel.totalRooms }}</td>
+
+          <td class="actions">
+
+            <button
+              type="button"
+              class="edit-button"
+              (click)="editHostel(hostel.id!)">
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="delete-button"
+              (click)="deleteHostel(hostel.id!)">
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+        <tr *ngIf="hostels.length === 0">
+          <td colspan="5" class="no-data">
+            No hostels found.
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

@@ -1,1 +1,29 @@
-<p>dashboard works!</p>
+<div class="dashboard-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="logo">PG Manager</div>
+
+    <nav>
+      <a routerLink="hostels">🏠 Hostels</a>
+      <a routerLink="rooms">🚪 Rooms</a>
+      <a routerLink="beds">🛏 Beds</a>
+      <a routerLink="tenants">👤 Tenants</a>
+      <a routerLink="allocations">📋 Allocations</a>
+      <a routerLink="payments">💰 Payments</a>
+      <a routerLink="complaints">⚠️ Complaints</a>
+      <a routerLink="notices">📢 Notices</a>
+      <a routerLink="visitors">🚶 Visitors</a>
+    </nav>
+
+    <button (click)="logout()">Logout</button>
+
+  </aside>
+
+  <!-- Main area -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

@@ -1,1 +1,7 @@
-export interface Admin {}
+export interface Admin {
+  id?: number;
+  username: string;
+  password: string;
+  email: string;
+  createdAt?: string;
+}

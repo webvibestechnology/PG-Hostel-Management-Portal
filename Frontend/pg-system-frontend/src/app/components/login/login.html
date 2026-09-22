@@ -1,1 +1,42 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-card">
+
+    <h2>PG Management Login</h2>
+
+   <form (ngSubmit)="onLogin()" autocomplete="off">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="Enter username"
+          autocomplete="off"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter password"
+          autocomplete="new-password"
+          required
+        />
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit">Login</button>
+
+    </form>
+
+  </div>
+</div>

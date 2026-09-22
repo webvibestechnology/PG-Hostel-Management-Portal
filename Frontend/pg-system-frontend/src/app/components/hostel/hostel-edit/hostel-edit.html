@@ -1,1 +1,89 @@
-<p>hostel-edit works!</p>
+<div class="hostel-form-container">
+
+  <div class="form-card">
+
+    <h2>Edit Hostel</h2>
+
+    <form (ngSubmit)="updateHostel()">
+
+      <div class="form-group">
+        <label for="name">Hostel Name</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          [(ngModel)]="hostel.name"
+          placeholder="Enter hostel name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea
+          id="address"
+          name="address"
+          [(ngModel)]="hostel.address"
+          placeholder="Enter hostel address"
+          required>
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input
+          id="phone"
+          type="text"
+          name="phone"
+          [(ngModel)]="hostel.phone"
+          placeholder="Enter phone number"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="totalRooms">Total Rooms</label>
+        <input
+          id="totalRooms"
+          type="number"
+          name="totalRooms"
+          [(ngModel)]="hostel.totalRooms"
+          min="1"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="totalFloors">Total Floors</label>
+        <input
+          id="totalFloors"
+          type="number"
+          name="totalFloors"
+          [(ngModel)]="hostel.totalFloors"
+          min="1"
+          required
+        />
+      </div>
+
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="save-button">
+          Update Hostel
+        </button>
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()">
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
