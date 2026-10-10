@@ -1,0 +1,104 @@
+.remaining-card {
+  margin-top: -5px;
+  margin-bottom: 22px;
+
+  padding: 16px 18px;
+
+  background: linear-gradient(
+    135deg,
+    #fff8e8,
+    #fff0d3
+  );
+
+  border: 1px solid #efd49b;
+
+  border-radius: 10px;
+}
+
+.remaining-card span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #8a6100;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
+}
+
+.remaining-card strong {
+  color: #9a6500;
+
+  font-size: 25px;
+
+  font-weight: 800;
+}
+
+
+/* Default Paid status */
+
+.status-info {
+  margin-top: 6px;
+
+  margin-bottom: 28px;
+
+  padding: 15px 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #f0fff5,
+    #e2f7e9
+  );
+
+  border: 1px solid #b9e6c8;
+
+  border-radius: 10px;
+}
+
+
+/* Pending */
+
+.pending-info {
+  background: linear-gradient(
+    135deg,
+    #fff9eb,
+    #fff0d3
+  );
+
+  border-color: #efd49b;
+}
+
+
+/* Paid */
+
+.paid-info {
+  background: linear-gradient(
+    135deg,
+    #f0fff5,
+    #e2f7e9
+  );
+
+  border-color: #b9e6c8;
+}
+.field-error {
+  margin-top: 6px;
+}
+
+.field-error small {
+  display: block;
+  color: #e03131;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}

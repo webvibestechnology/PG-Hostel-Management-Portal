@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Visitor } from '../models/visitor.model';
+
+import {
+  Visitor,
+  VisitorRequest
+} from '../models/visitor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,20 +21,31 @@ export class VisitorService {
   }
 
   getVisitorById(id: number): Observable<Visitor> {
-    return this.http.get<Visitor>(`${this.apiUrl}/${id}`);
+    return this.http.get<Visitor>(
+      `${this.apiUrl}/${id}`
+    );
   }
 
-  getVisitorsByTenant(tenantId: number): Observable<Visitor[]> {
+  getVisitorsByTenant(
+    tenantId: number
+  ): Observable<Visitor[]> {
     return this.http.get<Visitor[]>(
       `${this.apiUrl}/tenant/${tenantId}`
     );
   }
 
-  addVisitor(visitor: Visitor): Observable<Visitor> {
-    return this.http.post<Visitor>(this.apiUrl, visitor);
+  addVisitor(
+    visitor: VisitorRequest
+  ): Observable<Visitor> {
+    return this.http.post<Visitor>(
+      this.apiUrl,
+      visitor
+    );
   }
 
-  checkoutVisitor(id: number): Observable<Visitor> {
+  checkoutVisitor(
+    id: number
+  ): Observable<Visitor> {
     return this.http.put<Visitor>(
       `${this.apiUrl}/${id}/checkout`,
       {}

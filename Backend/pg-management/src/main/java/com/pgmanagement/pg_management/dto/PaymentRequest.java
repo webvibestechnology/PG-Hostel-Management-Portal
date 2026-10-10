@@ -3,12 +3,14 @@ package com.pgmanagement.pg_management.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 public class PaymentRequest {
 
-    @NotNull(message = "Tenant Id is Required")
+    @NotNull(message = "Tenant Id is required")
     private Integer tenantId;
 
     @NotNull(message = "Amount is required")
@@ -17,6 +19,10 @@ public class PaymentRequest {
 
     private LocalDate paymentDate;
 
+    @NotBlank(message = "Payment month is required")
+    private String paymentMonth;
+
+    @PositiveOrZero(message = "Amount paid cannot be negative")
     private BigDecimal amountPaid;
 
     private String paymentMode;
@@ -34,6 +40,7 @@ public class PaymentRequest {
             Integer tenantId,
             BigDecimal amount,
             LocalDate paymentDate,
+            String paymentMonth,
             BigDecimal amountPaid,
             String paymentMode,
             String status,
@@ -43,6 +50,7 @@ public class PaymentRequest {
         this.tenantId = tenantId;
         this.amount = amount;
         this.paymentDate = paymentDate;
+        this.paymentMonth = paymentMonth;
         this.amountPaid = amountPaid;
         this.paymentMode = paymentMode;
         this.status = status;
@@ -72,6 +80,14 @@ public class PaymentRequest {
 
     public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public String getPaymentMonth() {
+        return paymentMonth;
+    }
+
+    public void setPaymentMonth(String paymentMonth) {
+        this.paymentMonth = paymentMonth;
     }
 
     public BigDecimal getAmountPaid() {

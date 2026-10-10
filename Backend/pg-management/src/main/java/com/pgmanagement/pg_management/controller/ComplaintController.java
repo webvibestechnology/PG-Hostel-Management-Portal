@@ -21,6 +21,9 @@ public class ComplaintController {
         this.complaintService = complaintService;
     }
 
+    // =========================
+    // ADD COMPLAINT
+    // =========================
     @PostMapping
     public ResponseEntity<Complaint> addComplaint(
             @Valid @RequestBody ComplaintRequest request) {
@@ -30,6 +33,9 @@ public class ComplaintController {
         );
     }
 
+    // =========================
+    // GET ALL COMPLAINTS
+    // =========================
     @GetMapping
     public ResponseEntity<List<Complaint>> getAllComplaints() {
 
@@ -38,6 +44,9 @@ public class ComplaintController {
         );
     }
 
+    // =========================
+    // GET OPEN COMPLAINTS
+    // =========================
     @GetMapping("/open")
     public ResponseEntity<List<Complaint>> getOpenComplaints() {
 
@@ -46,6 +55,9 @@ public class ComplaintController {
         );
     }
 
+    // =========================
+    // GET COMPLAINT BY ID
+    // =========================
     @GetMapping("/{id}")
     public ResponseEntity<Complaint> getComplaintById(
             @PathVariable Integer id) {
@@ -55,6 +67,9 @@ public class ComplaintController {
         );
     }
 
+    // =========================
+    // UPDATE COMPLAINT STATUS
+    // =========================
     @PutMapping("/{id}/status")
     public ResponseEntity<Complaint> updateComplaintStatus(
             @PathVariable Integer id,

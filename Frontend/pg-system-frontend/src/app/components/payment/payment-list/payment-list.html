@@ -1,1 +1,441 @@
-<p>payment-list works!</p>
+<div class="payment-container">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="payment-header">
+
+    <div class="header-content">
+
+      <div class="header-icon">
+        💳
+      </div>
+
+      <div>
+
+        <h2>Payment Management</h2>
+
+        <p>
+          Record and track tenant payment history
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="add-payment-button"
+      (click)="addPayment()">
+
+      + Add Payment
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       FINANCIAL SUMMARY
+       ===================================================== -->
+
+  <div class="collection-grid">
+
+    <!-- Total Amount -->
+
+    <div class="collection-card due-card">
+
+      <div class="collection-icon">
+        ₹
+      </div>
+
+      <div class="collection-content">
+
+        <span class="collection-label">
+          Total Amount
+        </span>
+
+        <strong>
+          ₹{{ formatAmount(totalAmount) }}
+        </strong>
+
+        <small>
+          Total payment amount
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- Total Collected -->
+
+    <div class="collection-card collected-card">
+
+      <div class="collection-icon">
+        ✓
+      </div>
+
+      <div class="collection-content">
+
+        <span class="collection-label">
+          Total Collected
+        </span>
+
+        <strong>
+          ₹{{ formatAmount(totalCollected) }}
+        </strong>
+
+        <small>
+          Amount actually received
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- Total Remaining -->
+
+    <div class="collection-card remaining-card">
+
+      <div class="collection-icon">
+        !
+      </div>
+
+      <div class="collection-content">
+
+        <span class="collection-label">
+          Total Remaining
+        </span>
+
+        <strong>
+          ₹{{ formatAmount(totalRemaining) }}
+        </strong>
+
+        <small>
+          Outstanding amount
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       PAYMENT COUNT SUMMARY
+       ===================================================== -->
+
+  <div class="summary-grid">
+
+    <!-- Total Payments -->
+
+    <div class="summary-card total-card">
+
+      <div class="summary-icon">
+        📊
+      </div>
+
+      <div class="summary-content">
+
+        <span>
+          Total Payments
+        </span>
+
+        <strong>
+          {{ payments.length }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Paid -->
+
+    <div class="summary-card paid-card">
+
+      <div class="summary-icon">
+        ✓
+      </div>
+
+      <div class="summary-content">
+
+        <span>
+          Paid
+        </span>
+
+        <strong>
+          {{ paidCount }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Pending -->
+
+    <div class="summary-card pending-card">
+
+      <div class="summary-icon">
+        !
+      </div>
+
+      <div class="summary-content">
+
+        <span>
+          Pending
+        </span>
+
+        <strong>
+          {{ pendingCount }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       FILTER
+       ===================================================== -->
+
+  <div class="filter-toolbar">
+
+    <div class="filter-title">
+      Payment History
+    </div>
+
+
+    <div class="filter-buttons">
+
+      <button
+        type="button"
+        [class.active-filter]="selectedFilter === 'ALL'"
+        (click)="setFilter('ALL')">
+
+        All
+
+      </button>
+
+
+      <button
+        type="button"
+        [class.active-filter]="selectedFilter === 'PAID'"
+        (click)="setFilter('PAID')">
+
+        Paid
+
+      </button>
+
+
+      <button
+        type="button"
+        [class.active-filter]="selectedFilter === 'PENDING'"
+        (click)="setFilter('PENDING')">
+
+        Pending
+
+      </button>
+
+    </div>
+
+
+    <span class="record-count">
+
+      {{ filteredPayments.length }} payment(s)
+
+    </span>
+
+  </div>
+
+
+  <!-- =====================================================
+       PAYMENT TABLE
+       ===================================================== -->
+
+  <div class="payment-table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Tenant Name</th>
+
+          <th>Total Amount</th>
+
+          <th>Paid</th>
+
+          <th>Remaining</th>
+
+          <th>Month</th>
+
+          <th>Mode</th>
+
+          <th>Status</th>
+
+          <th>Date</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let payment of filteredPayments;
+            trackBy: trackByPaymentId
+          ">
+
+
+          <!-- Tenant -->
+
+          <td class="tenant-name">
+
+            {{ getTenantName(payment) }}
+
+          </td>
+
+
+          <!-- Total -->
+
+          <td class="amount-cell total-amount">
+
+            ₹{{ formatAmount(
+              getTotalAmount(payment)
+            ) }}
+
+          </td>
+
+
+          <!-- Paid -->
+
+          <td class="amount-cell paid-amount">
+
+            ₹{{ formatAmount(
+              getPaidAmount(payment)
+            ) }}
+
+          </td>
+
+
+          <!-- Remaining -->
+
+          <td
+            class="amount-cell"
+            [ngClass]="{
+              'remaining-zero':
+                getRemainingAmount(payment) === 0,
+              'remaining-due':
+                getRemainingAmount(payment) > 0
+            }">
+
+            ₹{{ formatAmount(
+              getRemainingAmount(payment)
+            ) }}
+
+          </td>
+
+
+          <!-- Month -->
+
+          <td class="payment-month">
+
+            {{ payment.paymentMonth || '-' }}
+
+          </td>
+
+
+          <!-- Mode -->
+
+          <td>
+
+            <span
+              class="mode-badge"
+              [ngClass]="
+                getModeClass(payment.paymentMode)
+              ">
+
+              {{ payment.paymentMode || '-' }}
+
+            </span>
+
+          </td>
+
+
+          <!-- Status -->
+
+          <td>
+
+            <span
+              class="status-badge"
+              [ngClass]="
+                getStatusClass(
+                  getDisplayStatus(payment)
+                )
+              ">
+
+              <span class="status-dot"></span>
+
+              {{ getDisplayStatus(payment) }}
+
+            </span>
+
+          </td>
+
+
+          <!-- Date -->
+
+          <td class="payment-date">
+
+            {{ formatPaymentDate(
+              payment.paymentDate
+            ) }}
+
+          </td>
+
+        </tr>
+
+
+        <!-- Empty -->
+
+        <tr *ngIf="filteredPayments.length === 0">
+
+          <td
+            colspan="8"
+            class="no-data">
+
+            <div class="empty-icon">
+              💳
+            </div>
+
+            <strong>
+              No payments found
+            </strong>
+
+            <p>
+              Record a payment to start building payment history.
+            </p>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

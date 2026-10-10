@@ -1,5 +1,7 @@
 package com.pgmanagement.pg_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -14,32 +16,35 @@ public class Notice {
     @Column(nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT") // मोठी नोटीस लिहिण्यासाठी TEXT टाईप वापरला
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
-    private Admin createdBy; // नोटीस कोणी काढली त्या ॲडमिनचा रेफरन्स
+    @JsonIgnore
+    private Admin createdBy;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // joined by me (नोटीस कोणासाठी आहे - सर्वांसाठी की ठराविक मजल्यासाठी)
     @Column(name = "target_audience")
     private String targetAudience;
 
-    
     public Notice() {
     }
 
-    public Notice(String title, String content, Admin createdBy, String targetAudience) {
+    public Notice(
+            String title,
+            String content,
+            Admin createdBy,
+            String targetAudience) {
+
         this.title = title;
         this.content = content;
         this.createdBy = createdBy;
         this.targetAudience = targetAudience;
     }
 
-    //show automatic date when pass notice
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

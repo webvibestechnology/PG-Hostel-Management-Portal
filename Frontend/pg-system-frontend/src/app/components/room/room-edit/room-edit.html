@@ -1,1 +1,255 @@
-<p>room-edit works!</p>
+<div class="room-form-container">
+
+  <div class="form-card">
+
+    <h2>Edit Room</h2>
+
+    <div
+      *ngIf="errorMessage"
+      class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form
+      #roomForm="ngForm"
+      (ngSubmit)="updateRoom()"
+      novalidate>
+
+      <!-- Hostel -->
+      <div class="form-group">
+
+        <label for="hostelId">
+          Select Hostel
+        </label>
+
+        <select
+          id="hostelId"
+          name="hostelId"
+          [(ngModel)]="room.hostelId"
+          #hostelField="ngModel"
+          required>
+
+          <option [ngValue]="0">
+            Select Hostel
+          </option>
+
+          <option
+            *ngFor="let hostel of hostels"
+            [ngValue]="hostel.id">
+
+            {{ hostel.name }}
+
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="hostelField.touched && room.hostelId === 0">
+          <small>Please select a hostel.</small>
+        </div>
+
+      </div>
+
+      <!-- Room Number -->
+      <div class="form-group">
+
+        <label for="roomNumber">
+          Room Number
+        </label>
+
+        <input
+          id="roomNumber"
+          type="text"
+          name="roomNumber"
+          [(ngModel)]="room.roomNumber"
+          #roomNumberField="ngModel"
+          placeholder="Enter room number"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="roomNumberField.invalid && roomNumberField.touched">
+          <small>Room number is required.</small>
+        </div>
+
+      </div>
+
+      <!-- Room Type -->
+      <div class="form-group">
+
+        <label for="roomType">
+          Room Type
+        </label>
+
+        <select
+          id="roomType"
+          name="roomType"
+          [(ngModel)]="room.roomType"
+          #roomTypeField="ngModel"
+          required>
+
+          <option value="">
+            Select Room Type
+          </option>
+
+          <option value="AC">
+            AC
+          </option>
+
+          <option value="NON-AC">
+            Non-AC
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="roomTypeField.invalid && roomTypeField.touched">
+          <small>Please select room type.</small>
+        </div>
+
+      </div>
+
+      <!-- Floor -->
+      <div class="form-group">
+
+        <label for="floor">
+          Floor
+        </label>
+
+        <input
+          id="floor"
+          type="number"
+          name="floor"
+          [(ngModel)]="room.floor"
+          #floorField="ngModel"
+          min="1"
+          [max]="getSelectedHostelFloors()"
+          required
+        />
+
+        <small class="field-hint">
+          Maximum floor:
+          {{ getSelectedHostelFloors() }}
+        </small>
+
+        <div
+          class="field-error"
+          *ngIf="floorField.invalid && floorField.touched">
+
+          <small *ngIf="floorField.errors?.['required']">
+            Floor is required.
+          </small>
+
+          <small *ngIf="floorField.errors?.['min']">
+            Floor must be at least 1.
+          </small>
+
+          <small *ngIf="floorField.errors?.['max']">
+            Floor cannot be greater than
+            {{ getSelectedHostelFloors() }}.
+          </small>
+
+        </div>
+
+      </div>
+
+      <!-- Capacity -->
+      <div class="form-group">
+
+        <label for="capacity">
+          Capacity
+        </label>
+
+        <input
+          id="capacity"
+          type="number"
+          name="capacity"
+          [(ngModel)]="room.capacity"
+          #capacityField="ngModel"
+          min="1"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="capacityField.invalid && capacityField.touched">
+
+          <small *ngIf="capacityField.errors?.['required']">
+            Capacity is required.
+          </small>
+
+          <small *ngIf="capacityField.errors?.['min']">
+            Capacity must be at least 1.
+          </small>
+
+        </div>
+
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+
+        <label for="status">
+          Status
+        </label>
+
+        <select
+          id="status"
+          name="status"
+          [(ngModel)]="room.status"
+          #statusField="ngModel"
+          required>
+
+          <option value="">
+            Select Status
+          </option>
+
+          <option value="AVAILABLE">
+            AVAILABLE
+          </option>
+
+          <option value="OCCUPIED">
+            OCCUPIED
+          </option>
+
+          <option value="MAINTENANCE">
+            MAINTENANCE
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="statusField.invalid && statusField.touched">
+          <small>Please select room status.</small>
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="roomForm.invalid || room.hostelId === 0">
+          Update Room
+        </button>
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()">
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

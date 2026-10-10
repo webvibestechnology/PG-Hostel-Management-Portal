@@ -14,32 +14,37 @@ public class Visitor {
 
     @ManyToOne
     @JoinColumn(name = "tenant_id")
-    private Tenant tenant; 
-    
+    private Tenant tenant;
+
     @Column(name = "visitor_name", nullable = false)
     private String visitorName;
 
     @Column(name = "visitor_phone")
     private String visitorPhone;
 
-    private String purpose; 
-    
+    private String purpose;
+
     @Column(name = "visit_date")
     private LocalDate visitDate;
 
     @Column(name = "check_in_time")
     private LocalDateTime checkInTime;
 
-   
     @Column(name = "check_out_time")
     private LocalDateTime checkOutTime;
 
-    
     public Visitor() {
     }
 
-  
-    public Visitor(Tenant tenant, String visitorName, String visitorPhone, String purpose, LocalDate visitDate, LocalDateTime checkInTime, LocalDateTime checkOutTime) {
+    public Visitor(
+            Tenant tenant,
+            String visitorName,
+            String visitorPhone,
+            String purpose,
+            LocalDate visitDate,
+            LocalDateTime checkInTime,
+            LocalDateTime checkOutTime) {
+
         this.tenant = tenant;
         this.visitorName = visitorName;
         this.visitorPhone = visitorPhone;
@@ -49,11 +54,18 @@ public class Visitor {
         this.checkOutTime = checkOutTime;
     }
 
-    //Date of visitor
     @PrePersist
     protected void onCreate() {
-        this.visitDate = LocalDate.now();
-        this.checkInTime = LocalDateTime.now();
+
+        if (this.visitDate == null) {
+            this.visitDate = LocalDate.now();
+        }
+
+        if (this.checkInTime == null) {
+            this.checkInTime = LocalDateTime.now();
+        }
+
+        this.checkOutTime = null;
     }
 
     public Integer getId() {

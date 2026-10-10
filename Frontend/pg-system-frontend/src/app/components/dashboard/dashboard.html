@@ -1,29 +1,742 @@
-<div class="dashboard-layout">
+<div class="dashboard-shell">
 
-  <!-- Sidebar -->
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+
   <aside class="sidebar">
 
-    <div class="logo">PG Manager</div>
+    <div class="sidebar-logo">
 
-    <nav>
-      <a routerLink="hostels">🏠 Hostels</a>
-      <a routerLink="rooms">🚪 Rooms</a>
-      <a routerLink="beds">🛏 Beds</a>
-      <a routerLink="tenants">👤 Tenants</a>
-      <a routerLink="allocations">📋 Allocations</a>
-      <a routerLink="payments">💰 Payments</a>
-      <a routerLink="complaints">⚠️ Complaints</a>
-      <a routerLink="notices">📢 Notices</a>
-      <a routerLink="visitors">🚶 Visitors</a>
+      <div class="logo-icon">
+        🏠
+      </div>
+
+      <div>
+        <h2>PG Manager</h2>
+        <p>Management Portal</p>
+      </div>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+      <!-- Dashboard -->
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="menu-icon">📊</span>
+        <span>Dashboard</span>
+      </a>
+
+
+      <!-- Hostels -->
+      <a
+        routerLink="/dashboard/hostels"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">🏢</span>
+        <span>Hostels</span>
+      </a>
+
+
+      <!-- Rooms -->
+      <a
+        routerLink="/dashboard/rooms"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">🚪</span>
+        <span>Rooms</span>
+      </a>
+
+
+      <!-- Beds -->
+      <a
+        routerLink="/dashboard/beds"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">🛏️</span>
+        <span>Beds</span>
+      </a>
+
+
+      <!-- Tenants -->
+      <a
+        routerLink="/dashboard/tenants"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">👥</span>
+        <span>Tenants</span>
+      </a>
+
+
+      <!-- Allocations -->
+      <a
+        routerLink="/dashboard/allocations"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">🔗</span>
+        <span>Allocations</span>
+      </a>
+
+
+      <!-- Payments -->
+      <a
+        routerLink="/dashboard/payments"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">💳</span>
+        <span>Payments</span>
+      </a>
+
+
+      <!-- Complaints -->
+      <a
+        routerLink="/dashboard/complaints"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">⚠️</span>
+        <span>Complaints</span>
+      </a>
+
+
+      <!-- Notices -->
+      <a
+        routerLink="/dashboard/notices"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">📢</span>
+        <span>Notices</span>
+      </a>
+
+
+      <!-- Visitors -->
+      <a
+        routerLink="/dashboard/visitors"
+        routerLinkActive="active"
+      >
+        <span class="menu-icon">🧑‍🤝‍🧑</span>
+        <span>Visitors</span>
+      </a>
+
     </nav>
 
-    <button (click)="logout()">Logout</button>
+
+    <!-- =========================
+         SIDEBAR LOGOUT
+    ========================== -->
+
+    <button
+      type="button"
+      class="logout-button"
+      (click)="logout()"
+    >
+      <span class="menu-icon">🚪</span>
+      <span>Logout</span>
+    </button>
 
   </aside>
 
-  <!-- Main area -->
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
   <main class="main-content">
-    <router-outlet></router-outlet>
+
+
+    <!-- =========================
+         DASHBOARD HOME
+    ========================== -->
+
+    <div
+      class="dashboard-home"
+      *ngIf="isDashboardHome"
+    >
+
+
+      <!-- =========================
+           DECORATIVE BACKGROUND
+      ========================== -->
+
+      <div class="bg-circle circle-one"></div>
+      <div class="bg-circle circle-two"></div>
+
+
+      <!-- =========================
+           WELCOME HERO
+      ========================== -->
+
+      <section class="welcome-card">
+
+
+        <!-- Welcome Text -->
+        <div class="welcome-content">
+
+
+          <!-- Badge -->
+          <div class="welcome-badge">
+            <span>✦</span>
+            PG Management System
+          </div>
+
+
+          <!-- Welcome Heading -->
+          <h1>
+            Welcome back,
+            <span>{{ adminName }}</span>
+            👋
+          </h1>
+
+
+          <!-- Welcome Description -->
+          <p>
+            Manage your hostels, rooms, beds, tenants,
+            payments and daily activities from one simple
+            dashboard.
+          </p>
+
+        </div>
+
+
+        <!-- =========================
+             BUILDING ILLUSTRATION
+        ========================== -->
+
+        <div class="welcome-illustration">
+
+
+          <!-- Main Building -->
+          <div class="building-building">
+
+
+            <!-- Building Top -->
+            <div class="building-top">
+
+              <span></span>
+              <span></span>
+              <span></span>
+
+            </div>
+
+
+            <!-- Building Body -->
+            <div class="building-body">
+
+
+              <!-- First Window Row -->
+              <div class="window-row">
+
+                <i></i>
+                <i></i>
+                <i></i>
+
+              </div>
+
+
+              <!-- Second Window Row -->
+              <div class="window-row">
+
+                <i></i>
+                <i></i>
+                <i></i>
+
+              </div>
+
+
+              <!-- Door -->
+              <div class="door"></div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Floating Decorative Dots -->
+
+          <div class="floating-dot dot-one"></div>
+
+          <div class="floating-dot dot-two"></div>
+
+          <div class="floating-dot dot-three"></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           DASHBOARD TITLE
+      ========================== -->
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-tag">
+            OVERVIEW
+          </span>
+
+          <h2>
+            Dashboard Summary
+          </h2>
+
+          <p>
+            Here is your PG management overview for today.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           STATISTICS
+      ========================== -->
+
+      <section class="stats-grid">
+
+
+        <!-- =========================
+             HOSTELS
+        ========================== -->
+
+        <div
+          class="stat-card purple-card clickable"
+          routerLink="/dashboard/hostels"
+        >
+
+          <div class="stat-top">
+
+            <div class="stat-icon">
+              🏢
+            </div>
+
+            <span class="stat-chip">
+              HOSTELS
+            </span>
+
+          </div>
+
+
+          <div class="stat-number">
+            {{ totalHostels }}
+          </div>
+
+
+          <div class="stat-label">
+            Total Hostels
+          </div>
+
+
+          <div class="stat-action">
+            View Hostels →
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             ROOMS
+        ========================== -->
+
+        <div
+          class="stat-card blue-card clickable"
+          routerLink="/dashboard/rooms"
+        >
+
+          <div class="stat-top">
+
+            <div class="stat-icon">
+              🚪
+            </div>
+
+            <span class="stat-chip">
+              ROOMS
+            </span>
+
+          </div>
+
+
+          <div class="stat-number">
+            {{ totalRooms }}
+          </div>
+
+
+          <div class="stat-label">
+            Total Rooms
+          </div>
+
+
+          <div class="stat-action">
+            View Rooms →
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             TENANTS
+        ========================== -->
+
+        <div
+          class="stat-card green-card clickable"
+          routerLink="/dashboard/tenants"
+        >
+
+          <div class="stat-top">
+
+            <div class="stat-icon">
+              👥
+            </div>
+
+            <span class="stat-chip">
+              TENANTS
+            </span>
+
+          </div>
+
+
+          <div class="stat-number">
+            {{ totalActiveTenants }}
+          </div>
+
+
+          <div class="stat-label">
+            Active Tenants
+          </div>
+
+
+          <div class="stat-action">
+            View Tenants →
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             BEDS
+        ========================== -->
+
+        <div
+          class="stat-card orange-card clickable"
+          routerLink="/dashboard/beds"
+        >
+
+          <div class="stat-top">
+
+            <div class="stat-icon">
+              🛏️
+            </div>
+
+            <span class="stat-chip">
+              BEDS
+            </span>
+
+          </div>
+
+
+          <div class="stat-number">
+            {{ availableBeds }}
+          </div>
+
+
+          <div class="stat-label">
+            Available Beds
+          </div>
+
+
+          <div class="stat-action">
+            View Beds →
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             COMPLAINTS
+        ========================== -->
+
+        <div
+          class="stat-card red-card clickable"
+          routerLink="/dashboard/complaints"
+        >
+
+          <div class="stat-top">
+
+            <div class="stat-icon">
+              ⚠️
+            </div>
+
+            <span class="stat-chip">
+              COMPLAINTS
+            </span>
+
+          </div>
+
+
+          <div class="stat-number">
+            {{ openComplaints }}
+          </div>
+
+
+          <div class="stat-label">
+            Open Complaints
+          </div>
+
+
+          <div class="stat-action">
+            View Complaints →
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             PAYMENTS
+        ========================== -->
+
+        <div
+          class="stat-card pink-card clickable"
+          routerLink="/dashboard/payments"
+        >
+
+          <div class="stat-top">
+
+            <div class="stat-icon">
+              💳
+            </div>
+
+            <span class="stat-chip">
+              PAYMENTS
+            </span>
+
+          </div>
+
+
+          <div class="stat-number">
+            {{ pendingPayments }}
+          </div>
+
+
+          <div class="stat-label">
+            Pending Payments
+          </div>
+
+
+          <div class="stat-action">
+            View Payments →
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           RECENT NOTICES
+      ========================== -->
+
+      <section class="notice-section">
+
+
+        <!-- Notice Header -->
+        <div class="notice-header">
+
+
+          <div>
+
+            <span class="section-tag">
+              LATEST UPDATES
+            </span>
+
+            <h2>
+              Recent Notices
+            </h2>
+
+            <p>
+              Stay updated with the latest PG announcements.
+            </p>
+
+          </div>
+
+
+          <!-- Notice Count -->
+          <div class="notice-total">
+
+            <span class="notice-total-icon">
+              📢
+            </span>
+
+            <span>
+              {{ recentNotices.length }}
+            </span>
+
+            <small>
+              Latest
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             LOADING
+        ========================== -->
+
+        <div
+          class="dashboard-loading"
+          *ngIf="loading"
+        >
+
+          <div class="loader"></div>
+
+          <span>
+            Loading dashboard...
+          </span>
+
+        </div>
+
+
+        <!-- =========================
+             ERROR
+        ========================== -->
+
+        <div
+          class="dashboard-error"
+          *ngIf="errorMessage"
+        >
+          {{ errorMessage }}
+        </div>
+
+
+        <!-- =========================
+             EMPTY NOTICES
+        ========================== -->
+
+        <div
+          class="empty-notices"
+          *ngIf="
+            !loading &&
+            recentNotices.length === 0
+          "
+        >
+
+          <div class="empty-icon">
+            📭
+          </div>
+
+
+          <h3>
+            No recent notices
+          </h3>
+
+
+          <p>
+            There are no notices available at the moment.
+          </p>
+
+        </div>
+
+
+        <!-- =========================
+             NOTICE CARDS
+        ========================== -->
+
+        <div
+          class="notice-grid"
+          *ngIf="
+            !loading &&
+            recentNotices.length > 0
+          "
+        >
+
+
+          <article
+            class="notice-card"
+            *ngFor="
+              let notice of recentNotices;
+              trackBy: trackByNoticeId
+            "
+          >
+
+
+            <!-- Color Bar -->
+            <div class="notice-color-bar"></div>
+
+
+            <!-- Card Header -->
+            <div class="notice-card-header">
+
+
+              <!-- Notice Icon -->
+              <div class="notice-avatar">
+                📢
+              </div>
+
+
+              <!-- Notice Title -->
+              <div class="notice-title-area">
+
+                <h3>
+                  {{ notice.title }}
+                </h3>
+
+
+                <span class="notice-date">
+
+                  📅
+                  {{ formatDate(notice.createdAt) }}
+
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- Notice Content -->
+            <p class="notice-content">
+              {{ getNoticePreview(notice.content) }}
+            </p>
+
+
+            <!-- Notice Footer -->
+            <div class="notice-footer">
+
+              <span>
+                PG Announcement
+              </span>
+
+              <span>
+                →
+              </span>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- =========================
+         CHILD PAGE ROUTES
+    ========================== -->
+
+    <div class="child-page">
+
+      <router-outlet></router-outlet>
+
+    </div>
+
   </main>
 
 </div>

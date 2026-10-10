@@ -38,7 +38,7 @@ public class RoomServiceImpl implements RoomService {
         room.setRoomType(request.getRoomType());
         room.setFloor(request.getFloor());
         room.setStatus(request.getStatus());
-
+        room.setCapacity(request.getCapacity());
         return roomRepository.save(room);
     }
 
@@ -73,6 +73,7 @@ public class RoomServiceImpl implements RoomService {
         room.setRoomType(request.getRoomType());
         room.setFloor(request.getFloor());
         room.setStatus(request.getStatus());
+        room.setCapacity(request.getCapacity());
 
         return roomRepository.save(room);
     }

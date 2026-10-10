@@ -1,1 +1,221 @@
-<p>allocation-list works!</p>
+<div class="allocation-container">
+
+  <div class="allocation-header">
+
+    <div class="header-content">
+
+      <div class="header-icon">
+        🏠
+      </div>
+
+      <div>
+        <h2>Allocation Management</h2>
+
+        <p>
+          Manage tenant bed allocations and vacating
+        </p>
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="add-allocation-button"
+      (click)="addAllocation()">
+      + New Allocation
+    </button>
+
+  </div>
+
+
+  <!-- Summary -->
+
+  <div class="summary-grid">
+
+    <div class="summary-card total-card">
+
+      <div class="summary-icon">
+        📋
+      </div>
+
+      <div class="summary-content">
+
+        <span>Total Allocations</span>
+
+        <strong>
+          {{ totalAllocations }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="summary-card active-card">
+
+      <div class="summary-icon">
+        ✓
+      </div>
+
+      <div class="summary-content">
+
+        <span>Active</span>
+
+        <strong>
+          {{ activeAllocations }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="summary-card vacated-card">
+
+      <div class="summary-icon">
+        ↩
+      </div>
+
+      <div class="summary-content">
+
+        <span>Vacated</span>
+
+        <strong>
+          {{ vacatedAllocations }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Success Message -->
+
+  <div
+    *ngIf="successMessage"
+    class="success-message">
+
+    {{ successMessage }}
+
+  </div>
+
+
+  <!-- Table -->
+
+  <div class="allocation-table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Tenant Name</th>
+          <th>Bed Number</th>
+          <th>Room Number</th>
+          <th>Allocation Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let allocation of allocations;
+            trackBy: trackByAllocationId
+          ">
+
+          <td class="tenant-name">
+            {{ getTenantName(allocation) }}
+          </td>
+
+          <td class="bed-number">
+            {{ getBedNumber(allocation) }}
+          </td>
+
+          <td class="room-number">
+            {{ getRoomNumber(allocation) }}
+          </td>
+
+          <td class="allocation-date">
+            {{ formatDate(allocation.startDate) }}
+          </td>
+
+          <td>
+
+            <span
+              class="status-badge"
+              [ngClass]="getStatusClass(allocation.status)">
+
+              <span class="status-dot"></span>
+
+              {{ allocation.status }}
+
+            </span>
+
+          </td>
+
+          <td class="actions">
+
+            <button
+              *ngIf="allocation.status.toUpperCase() === 'ACTIVE'"
+              type="button"
+              class="vacate-button"
+              [disabled]="vacatingAllocationId === allocation.id"
+              (click)="vacateAllocation(allocation.id!)">
+
+              {{
+                vacatingAllocationId === allocation.id
+                  ? 'Vacating...'
+                  : 'Vacate'
+              }}
+
+            </button>
+
+
+            <span
+              *ngIf="allocation.status.toUpperCase() === 'VACATED'"
+              class="completed-label">
+
+              Completed
+
+            </span>
+
+          </td>
+
+        </tr>
+
+
+        <tr *ngIf="allocations.length === 0">
+
+          <td
+            colspan="6"
+            class="no-data">
+
+            <div class="empty-icon">
+              🏠
+            </div>
+
+            <strong>
+              No allocations found
+            </strong>
+
+            <p>
+              Create an allocation to assign a tenant to a bed.
+            </p>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

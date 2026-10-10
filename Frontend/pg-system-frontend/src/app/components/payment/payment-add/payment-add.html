@@ -1,1 +1,380 @@
-<p>payment-add works!</p>
+<div class="payment-form-container">
+
+  <div class="form-card">
+
+    <div class="form-header">
+
+      <div class="form-icon">
+        💳
+      </div>
+
+      <div>
+        <h2>Add Payment</h2>
+
+        <p>
+          Record tenant payment and track outstanding amount
+        </p>
+      </div>
+
+    </div>
+
+
+    <div
+      *ngIf="errorMessage"
+      class="error-message">
+      {{ errorMessage }}
+    </div>
+
+
+    <div
+      *ngIf="loadingTenants"
+      class="loading-box">
+
+      <div class="loading-spinner"></div>
+
+      <span>
+        Loading active tenants...
+      </span>
+
+    </div>
+
+
+    <form
+      *ngIf="!loadingTenants"
+      #paymentForm="ngForm"
+      (ngSubmit)="addPayment()"
+      novalidate>
+
+
+      <!-- Tenant -->
+
+      <div class="form-group">
+
+        <label for="tenantId">
+          Tenant
+        </label>
+
+        <select
+          id="tenantId"
+          name="tenantId"
+          [(ngModel)]="payment.tenantId"
+          #tenantField="ngModel"
+          required>
+
+          <option [ngValue]="0">
+            Select Tenant
+          </option>
+
+          <option
+            *ngFor="let tenant of tenants"
+            [ngValue]="tenant.id">
+
+            {{ tenant.name }}
+
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="tenantField.touched && payment.tenantId === 0">
+          <small>Please select a tenant.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Total Amount -->
+
+      <div class="form-group">
+
+        <label for="amount">
+          Total Amount
+        </label>
+
+        <div class="amount-input">
+
+          <span>₹</span>
+
+          <input
+            id="amount"
+            type="number"
+            name="amount"
+            [(ngModel)]="payment.amount"
+            #amountField="ngModel"
+            (ngModelChange)="updateStatus()"
+            min="1"
+            step="0.01"
+            placeholder="Enter total amount"
+            required
+          />
+
+        </div>
+
+        <div
+          class="field-error"
+          *ngIf="amountField.invalid && amountField.touched">
+
+          <small *ngIf="amountField.errors?.['required']">
+            Total amount is required.
+          </small>
+
+          <small *ngIf="amountField.errors?.['min']">
+            Total amount must be greater than 0.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Amount Paid -->
+
+      <div class="form-group">
+
+        <label for="amountPaid">
+          Amount Paid
+        </label>
+
+        <div class="amount-input">
+
+          <span>₹</span>
+
+          <input
+            id="amountPaid"
+            type="number"
+            name="amountPaid"
+            [(ngModel)]="payment.amountPaid"
+            #amountPaidField="ngModel"
+            (ngModelChange)="updateStatus()"
+            min="0"
+            step="0.01"
+            placeholder="Enter amount received"
+            required
+          />
+
+        </div>
+
+        <div
+          class="field-error"
+          *ngIf="amountPaidField.invalid && amountPaidField.touched">
+
+          <small *ngIf="amountPaidField.errors?.['required']">
+            Amount paid is required.
+          </small>
+
+          <small *ngIf="amountPaidField.errors?.['min']">
+            Amount paid cannot be negative.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Remaining -->
+
+      <div class="remaining-card">
+
+        <div>
+
+          <span>
+            Remaining Amount
+          </span>
+
+          <strong>
+            ₹{{ getRemainingAmount() | number:'1.2-2' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- Payment Date -->
+
+      <div class="form-group">
+
+        <label for="paymentDate">
+          Payment Date
+        </label>
+
+        <input
+          id="paymentDate"
+          type="date"
+          name="paymentDate"
+          [(ngModel)]="payment.paymentDate"
+          #paymentDateField="ngModel"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="paymentDateField.invalid && paymentDateField.touched">
+          <small>Payment date is required.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Payment Month -->
+
+      <div class="form-group">
+
+        <label for="paymentMonth">
+          Payment Month
+        </label>
+
+        <input
+          id="paymentMonth"
+          type="text"
+          name="paymentMonth"
+          [(ngModel)]="payment.paymentMonth"
+          #paymentMonthField="ngModel"
+          placeholder="Example: September 2026"
+          maxlength="30"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="paymentMonthField.invalid && paymentMonthField.touched">
+          <small>Payment month is required.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Payment Mode -->
+
+      <div class="form-group">
+
+        <label for="paymentMode">
+          Payment Mode
+        </label>
+
+        <select
+          id="paymentMode"
+          name="paymentMode"
+          [(ngModel)]="payment.paymentMode"
+          #paymentModeField="ngModel"
+          required>
+
+          <option value="">
+            Select Payment Mode
+          </option>
+
+          <option value="CASH">
+            CASH
+          </option>
+
+          <option value="UPI">
+            UPI
+          </option>
+
+          <option value="BANK_TRANSFER">
+            BANK_TRANSFER
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="paymentModeField.invalid && paymentModeField.touched">
+          <small>Please select payment mode.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Remarks -->
+
+      <div class="form-group">
+
+        <label for="remarks">
+          Remarks
+        </label>
+
+        <textarea
+          id="remarks"
+          name="remarks"
+          [(ngModel)]="payment.remarks"
+          placeholder="Example: September rent"
+          maxlength="250">
+        </textarea>
+
+      </div>
+
+
+      <!-- Status -->
+
+      <div
+        class="status-info"
+        [class.pending-info]="payment.status === 'Pending'"
+        [class.paid-info]="payment.status === 'Paid'">
+
+        <div class="status-icon">
+          {{ payment.status === 'Paid' ? '✓' : '!' }}
+        </div>
+
+        <div class="status-content">
+
+          <span class="status-label">
+            Payment Status
+          </span>
+
+          <strong>
+            {{ payment.status.toUpperCase() }}
+          </strong>
+
+          <small *ngIf="payment.status === 'Paid'">
+            Full amount has been paid.
+          </small>
+
+          <small *ngIf="payment.status === 'Pending'">
+            Some amount is still outstanding.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Actions -->
+
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="
+            saving ||
+            paymentForm.invalid ||
+            payment.tenantId === 0 ||
+            tenants.length === 0
+          ">
+
+          {{
+            saving
+              ? 'Saving...'
+              : 'Save Payment'
+          }}
+
+        </button>
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()">
+
+          Cancel
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

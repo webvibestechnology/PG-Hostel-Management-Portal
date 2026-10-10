@@ -1,6 +1,8 @@
 package com.pgmanagement.pg_management.serviceimpl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -39,6 +41,22 @@ public class VisitorServiceImpl implements VisitorService {
         visitor.setVisitorPhone(request.getVisitorPhone());
         visitor.setPurpose(request.getPurpose());
 
+        LocalDate visitDate = request.getVisitDate() != null
+                ? request.getVisitDate()
+                : LocalDate.now();
+
+        LocalTime checkInTime = request.getCheckInTime() != null
+                ? request.getCheckInTime()
+                : LocalTime.now();
+
+        visitor.setVisitDate(visitDate);
+
+        visitor.setCheckInTime(
+                LocalDateTime.of(visitDate, checkInTime)
+        );
+
+        visitor.setCheckOutTime(null);
+
         return visitorRepository.save(visitor);
     }
 
@@ -63,6 +81,10 @@ public class VisitorServiceImpl implements VisitorService {
 
         Visitor visitor = visitorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Visitor not found"));
+
+        if (visitor.getCheckOutTime() != null) {
+            return visitor;
+        }
 
         visitor.setCheckOutTime(LocalDateTime.now());
 

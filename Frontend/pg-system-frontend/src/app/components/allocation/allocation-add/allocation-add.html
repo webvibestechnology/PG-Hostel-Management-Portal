@@ -1,1 +1,250 @@
-<p>allocation-add works!</p>
+<div class="allocation-form-container">
+
+  <div class="form-card">
+
+    <!-- Header -->
+
+    <div class="form-header">
+
+      <div class="form-icon">
+        🏠
+      </div>
+
+      <div>
+
+        <h2>New Allocation</h2>
+
+        <p>
+          Assign an active tenant to an available bed
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Error -->
+
+    <div
+      *ngIf="errorMessage"
+      class="error-message">
+
+      {{ errorMessage }}
+
+    </div>
+
+
+    <!-- Loading -->
+
+    <div
+      *ngIf="loadingData"
+      class="loading-box">
+
+      <div class="loading-spinner"></div>
+
+      <span>
+        Loading tenants and available beds...
+      </span>
+
+    </div>
+
+
+    <!-- Form -->
+
+    <form
+      *ngIf="!loadingData"
+      #allocationForm="ngForm"
+      (ngSubmit)="addAllocation()"
+      novalidate>
+
+
+      <!-- Tenant -->
+
+      <div class="form-group">
+
+        <label for="tenantId">
+          Active Tenant
+        </label>
+
+        <select
+          id="tenantId"
+          name="tenantId"
+          [(ngModel)]="allocation.tenantId"
+          #tenantField="ngModel"
+          required>
+
+          <option [ngValue]="0">
+            Select Active Tenant
+          </option>
+
+          <option
+            *ngFor="let tenant of tenants"
+            [ngValue]="tenant.id">
+
+            {{ tenant.name }}
+            -
+            {{ tenant.phone }}
+
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="tenantField.touched && allocation.tenantId === 0">
+          <small>Please select an active tenant.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Bed -->
+
+      <div class="form-group">
+
+        <label for="bedId">
+          Available Bed
+        </label>
+
+        <select
+          id="bedId"
+          name="bedId"
+          [(ngModel)]="allocation.bedId"
+          #bedField="ngModel"
+          required>
+
+          <option [ngValue]="0">
+            Select Available Bed
+          </option>
+
+          <option
+            *ngFor="let bed of beds"
+            [ngValue]="bed.id">
+
+            {{ getBedLabel(bed) }}
+
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="bedField.touched && allocation.bedId === 0">
+          <small>Please select an available bed.</small>
+        </div>
+
+      </div>
+
+
+      <!-- No Tenant -->
+
+      <div
+        *ngIf="tenants.length === 0"
+        class="info-message">
+
+        No active tenants are currently available.
+
+      </div>
+
+
+      <!-- No Beds -->
+
+      <div
+        *ngIf="beds.length === 0"
+        class="info-message">
+
+        No available beds are currently available.
+
+      </div>
+
+
+      <!-- Start Date -->
+
+      <div class="form-group">
+
+        <label for="startDate">
+          Allocation Start Date
+        </label>
+
+        <input
+          id="startDate"
+          type="date"
+          name="startDate"
+          [(ngModel)]="allocation.startDate"
+          #startDateField="ngModel"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="startDateField.invalid && startDateField.touched">
+          <small>Allocation start date is required.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Status -->
+
+      <div class="status-info">
+
+        <div class="status-info-icon">
+          ✓
+        </div>
+
+        <div>
+
+          <span class="status-title">
+            Allocation Status
+          </span>
+
+          <strong>
+            ACTIVE
+          </strong>
+
+          <small>
+            New allocations are automatically created as active.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Actions -->
+
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="
+            saving ||
+            allocationForm.invalid ||
+            allocation.tenantId === 0 ||
+            allocation.bedId === 0 ||
+            tenants.length === 0 ||
+            beds.length === 0
+          ">
+
+          {{ saving ? 'Allocating...' : 'Create Allocation' }}
+
+        </button>
+
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()">
+
+          Cancel
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

@@ -53,6 +53,9 @@ public class HostelServiceImpl implements HostelService {
         hostel.setName(request.getName());
         hostel.setAddress(request.getAddress());
         hostel.setPhone(request.getPhone());
+        hostel.setTotalRooms(request.getTotalRooms());
+        hostel.setTotalFloors(request.getTotalFloors());
+
 
         return hostelRepository.save(hostel);
     }

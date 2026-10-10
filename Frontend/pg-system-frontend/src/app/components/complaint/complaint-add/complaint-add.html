@@ -1,1 +1,226 @@
-<p>complaint-add works!</p>
+<div class="complaint-form-container">
+
+  <div class="form-card">
+
+    <!-- Header -->
+
+    <div class="form-header">
+
+      <div class="form-icon">
+        📢
+      </div>
+
+      <div>
+
+        <h2>File Complaint</h2>
+
+        <p>
+          Register a tenant complaint for admin review
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Error -->
+
+    <div
+      *ngIf="errorMessage"
+      class="error-message">
+
+      {{ errorMessage }}
+
+    </div>
+
+
+    <!-- Loading -->
+
+    <div
+      *ngIf="loadingTenants"
+      class="loading-box">
+
+      <div class="loading-spinner"></div>
+
+      <span>
+        Loading active tenants...
+      </span>
+
+    </div>
+
+
+    <!-- Form -->
+
+    <form
+      *ngIf="!loadingTenants"
+      #complaintForm="ngForm"
+      (ngSubmit)="addComplaint()"
+      novalidate>
+
+      <!-- Tenant -->
+
+      <div class="form-group">
+
+        <label for="tenantId">
+          Tenant
+        </label>
+
+        <select
+          id="tenantId"
+          name="tenantId"
+          [(ngModel)]="complaint.tenantId"
+          #tenantField="ngModel"
+          required>
+
+          <option [ngValue]="0">
+            Select Tenant
+          </option>
+
+          <option
+            *ngFor="let tenant of tenants"
+            [ngValue]="tenant.id">
+
+            {{ tenant.name }}
+
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="tenantField.touched && complaint.tenantId === 0">
+          <small>Please select a tenant.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Title -->
+
+      <div class="form-group">
+
+        <label for="title">
+          Complaint Title
+        </label>
+
+        <input
+          id="title"
+          type="text"
+          name="title"
+          [(ngModel)]="complaint.title"
+          #titleField="ngModel"
+          placeholder="Example: Water supply issue"
+          maxlength="150"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="titleField.invalid && titleField.touched">
+
+          <small *ngIf="titleField.errors?.['required']">
+            Complaint title is required.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Description -->
+
+      <div class="form-group">
+
+        <label for="description">
+          Description
+        </label>
+
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="complaint.description"
+          #descriptionField="ngModel"
+          placeholder="Describe the complaint in detail..."
+          maxlength="1000"
+          required>
+        </textarea>
+
+        <div
+          class="field-error"
+          *ngIf="descriptionField.invalid && descriptionField.touched">
+
+          <small *ngIf="descriptionField.errors?.['required']">
+            Complaint description is required.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Initial Status -->
+
+      <div class="status-info">
+
+        <div class="status-icon">
+          !
+        </div>
+
+        <div class="status-content">
+
+          <span class="status-label">
+            Initial Status
+          </span>
+
+          <strong>
+            OPEN
+          </strong>
+
+          <small>
+            New complaints are automatically opened for admin review.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Actions -->
+
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="
+            saving ||
+            complaintForm.invalid ||
+            complaint.tenantId === 0 ||
+            tenants.length === 0
+          ">
+
+          {{
+            saving
+              ? 'Saving...'
+              : 'File Complaint'
+          }}
+
+        </button>
+
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()">
+
+          Cancel
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

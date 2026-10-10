@@ -1,1 +1,186 @@
-<p>bed-add works!</p>
+<div class="bed-form-container">
+
+  <div class="form-card">
+
+    <div class="form-header">
+      <div class="form-icon">
+        🛏
+      </div>
+
+      <div>
+        <h2>Add Bed</h2>
+        <p>Assign a new bed to a room</p>
+      </div>
+    </div>
+
+    <div
+      *ngIf="errorMessage"
+      class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form
+      #bedForm="ngForm"
+      (ngSubmit)="addBed()"
+      novalidate>
+
+      <!-- Room -->
+      <div class="form-group">
+
+        <label for="roomId">
+          Select Room
+        </label>
+
+        <select
+          id="roomId"
+          name="roomId"
+          [(ngModel)]="bed.roomId"
+          #roomField="ngModel"
+          required>
+
+          <option [ngValue]="0">
+            Select Room
+          </option>
+
+          <option
+            *ngFor="let room of rooms"
+            [ngValue]="room.id">
+
+            {{ getRoomLabel(room) }}
+
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="roomField.touched && bed.roomId === 0">
+          <small>Please select a room.</small>
+        </div>
+
+      </div>
+
+      <!-- Bed Number -->
+      <div class="form-group">
+
+        <label for="bedNumber">
+          Bed Number
+        </label>
+
+        <input
+          id="bedNumber"
+          type="text"
+          name="bedNumber"
+          [(ngModel)]="bed.bedNumber"
+          #bedNumberField="ngModel"
+          placeholder="Example: B-101"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="bedNumberField.invalid && bedNumberField.touched">
+          <small>Bed number is required.</small>
+        </div>
+
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+
+        <label for="status">
+          Status
+        </label>
+
+        <select
+          id="status"
+          name="status"
+          [(ngModel)]="bed.status"
+          #statusField="ngModel"
+          required>
+
+          <option value="">
+            Select Status
+          </option>
+
+          <option value="AVAILABLE">
+            AVAILABLE
+          </option>
+
+          <option value="OCCUPIED">
+            OCCUPIED
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="statusField.invalid && statusField.touched">
+          <small>Please select bed status.</small>
+        </div>
+
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+
+        <label for="price">
+          Price (₹ / month)
+        </label>
+
+        <div class="price-input">
+          <span>₹</span>
+
+          <input
+            id="price"
+            type="number"
+            name="price"
+            [(ngModel)]="bed.price"
+            #priceField="ngModel"
+            min="1"
+            step="0.01"
+            placeholder="Enter monthly price"
+            required
+          />
+        </div>
+
+        <div
+          class="field-error"
+          *ngIf="priceField.invalid && priceField.touched">
+
+          <small *ngIf="priceField.errors?.['required']">
+            Price is required.
+          </small>
+
+          <small *ngIf="priceField.errors?.['min']">
+            Price must be greater than 0.
+          </small>
+
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="bedForm.invalid || bed.roomId === 0">
+          Save Bed
+        </button>
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()">
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

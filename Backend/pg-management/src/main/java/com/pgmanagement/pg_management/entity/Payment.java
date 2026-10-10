@@ -22,26 +22,40 @@ public class Payment {
     @Column(name = "payment_date")
     private LocalDateTime paymentDate;
 
+    @Column(name = "payment_month")
+    private String paymentMonth;
+
     @Column(name = "amount_paid")
     private BigDecimal amountPaid;
 
     @Column(name = "payment_mode")
-    private String paymentMode; // Eg. UPI, Cash, NetBanking
+    private String paymentMode;
 
-    private String status; // Eg. Paid, Pending, Failed
+    private String status;
 
     private String remarks;
 
-    // joined by me (ऑनलाईन पेमेंटचा UTR नंबर)
     @Column(name = "transaction_id", unique = true)
     private String transactionId;
 
-    
     public Payment() {
     }
-    public Payment(Tenant tenant, BigDecimal amount, BigDecimal amountPaid, String paymentMode, String status, String remarks, String transactionId) {
+
+    public Payment(
+            Tenant tenant,
+            BigDecimal amount,
+            LocalDateTime paymentDate,
+            String paymentMonth,
+            BigDecimal amountPaid,
+            String paymentMode,
+            String status,
+            String remarks,
+            String transactionId) {
+
         this.tenant = tenant;
         this.amount = amount;
+        this.paymentDate = paymentDate;
+        this.paymentMonth = paymentMonth;
         this.amountPaid = amountPaid;
         this.paymentMode = paymentMode;
         this.status = status;
@@ -49,17 +63,19 @@ public class Payment {
         this.transactionId = transactionId;
     }
 
-    // Automatic save payment date and time
     @PrePersist
     protected void onCreate() {
-        this.paymentDate = LocalDateTime.now();
+
+        if (this.paymentDate == null) {
+            this.paymentDate = LocalDateTime.now();
+        }
     }
 
-    public Integer getid() {
+    public Integer getId() {
         return id;
     }
 
-    public void setid(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -85,6 +101,14 @@ public class Payment {
 
     public void setPaymentDate(LocalDateTime paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public String getPaymentMonth() {
+        return paymentMonth;
+    }
+
+    public void setPaymentMonth(String paymentMonth) {
+        this.paymentMonth = paymentMonth;
     }
 
     public BigDecimal getAmountPaid() {

@@ -1,1 +1,173 @@
-<p>notice-add works!</p>
+<div class="notice-add-page">
+
+  <!-- Header -->
+  <div class="page-header">
+
+    <div>
+      <span class="header-kicker">NOTICE BOARD</span>
+
+      <h1>Create Notice</h1>
+
+      <p>
+        Publish an important announcement for residents.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="back-btn"
+      [disabled]="saving"
+      (click)="cancel()">
+      ← Back to Notices
+    </button>
+
+  </div>
+
+  <!-- Form Card -->
+  <div class="form-card">
+
+    <!-- Messages -->
+
+    <div
+      *ngIf="successMessage"
+      class="message success-message">
+      {{ successMessage }}
+    </div>
+
+    <div
+      *ngIf="errorMessage"
+      class="message error-message">
+      {{ errorMessage }}
+    </div>
+
+
+    <!-- Form -->
+
+    <form
+      #noticeForm="ngForm"
+      (ngSubmit)="saveNotice()"
+      novalidate>
+
+      <!-- Title -->
+
+      <div class="form-group">
+
+        <label for="noticeTitle">
+          Notice Title
+          <span>*</span>
+        </label>
+
+        <input
+          id="noticeTitle"
+          type="text"
+          name="title"
+          [(ngModel)]="notice.title"
+          #titleField="ngModel"
+          placeholder="Enter notice title"
+          maxlength="150"
+          autocomplete="off"
+          [disabled]="saving"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="titleField.invalid && titleField.touched">
+
+          <small *ngIf="titleField.errors?.['required']">
+            Notice title is required.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Content -->
+
+      <div class="form-group">
+
+        <label for="noticeContent">
+          Notice Content
+          <span>*</span>
+        </label>
+
+        <textarea
+          id="noticeContent"
+          name="content"
+          [(ngModel)]="notice.content"
+          #contentField="ngModel"
+          placeholder="Write the complete notice here..."
+          rows="9"
+          maxlength="2000"
+          [disabled]="saving"
+          required>
+        </textarea>
+
+        <div class="character-info">
+          {{ notice.content.length }} / 2000 characters
+        </div>
+
+        <div
+          class="field-error"
+          *ngIf="contentField.invalid && contentField.touched">
+
+          <small *ngIf="contentField.errors?.['required']">
+            Notice content is required.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Audience -->
+
+      <div class="audience-box">
+
+        <div class="audience-icon">
+          📢
+        </div>
+
+        <div>
+          <strong>Target Audience</strong>
+          <span>All Residents</span>
+        </div>
+
+      </div>
+
+
+      <!-- Actions -->
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          [disabled]="saving"
+          (click)="cancel()">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="save-btn"
+          [disabled]="saving || noticeForm.invalid">
+
+          <span *ngIf="!saving">
+            Publish Notice
+          </span>
+
+          <span *ngIf="saving">
+            Publishing...
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

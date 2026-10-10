@@ -1,1 +1,137 @@
-<p>bed-list works!</p>
+<div class="bed-container">
+
+  <div class="page-header">
+
+    <div>
+      <h2>Bed Management</h2>
+
+      <p class="page-subtitle">
+        Manage beds, rooms and availability
+      </p>
+    </div>
+
+    <a
+      routerLink="/dashboard/beds/add"
+      class="add-button">
+      + Add Bed
+    </a>
+
+  </div>
+
+  <!-- Available Beds -->
+
+  <div class="summary-card">
+
+    <div class="summary-icon">
+      🛏
+    </div>
+
+    <div class="summary-content">
+
+      <span class="summary-label">
+        Available Beds
+      </span>
+
+      <span class="summary-value">
+        {{ availableBeds }}
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- Bed Table -->
+
+  <div class="table-container">
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Bed Number</th>
+          <th>Room Number</th>
+          <th>Hostel Name</th>
+          <th>Status</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let bed of beds">
+
+          <td class="bed-number">
+            {{ bed.bedNumber }}
+          </td>
+
+          <td class="room-number">
+            {{ getRoomNumber(bed) }}
+          </td>
+
+          <td class="hostel-name">
+            {{ getHostelName(bed) }}
+          </td>
+
+          <td>
+
+            <span
+              class="status-badge"
+              [ngClass]="getStatusClass(bed.status)">
+              {{ bed.status }}
+            </span>
+
+          </td>
+
+          <td class="price">
+            ₹{{ bed.price }}
+          </td>
+
+          <td class="actions">
+
+            <button
+              type="button"
+              class="edit-button"
+              (click)="editBed(bed.id!)">
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="delete-button"
+              [disabled]="deletingBedId === bed.id"
+              (click)="deleteBed(bed.id!)">
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+        <tr *ngIf="beds.length === 0">
+
+          <td
+            colspan="6"
+            class="no-data">
+            No beds found.
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <!-- Success Message - only one -->
+
+  <div
+    *ngIf="successMessage"
+    class="success-message">
+    {{ successMessage }}
+  </div>
+
+</div>

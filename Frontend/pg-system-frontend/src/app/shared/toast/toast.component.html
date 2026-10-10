@@ -1,0 +1,28 @@
+<div
+  class="toast"
+  *ngIf="visible"
+  [class.toast-success]="type === 'success'"
+  [class.toast-error]="type === 'error'"
+>
+  <div class="toast-icon">
+    <span *ngIf="type === 'success'">✓</span>
+    <span *ngIf="type === 'error'">!</span>
+  </div>
+
+  <div class="toast-content">
+    <strong>
+      {{ type === 'success' ? 'Success' : 'Error' }}
+    </strong>
+
+    <span>{{ message }}</span>
+  </div>
+
+  <button
+    type="button"
+    class="toast-close"
+    aria-label="Close"
+    (click)="hide()"
+  >
+    ×
+  </button>
+</div>

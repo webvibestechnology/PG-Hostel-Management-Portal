@@ -31,6 +31,18 @@ public class BedServiceImpl implements BedService {
         Room room = roomRepository.findById(request.getRoomId())
                 .orElseThrow(() -> new RuntimeException("Room not found"));
 
+        boolean bedExists = bedRepository.existsByRoom_IdAndBedNumber(
+                request.getRoomId(),
+                request.getBedNumber()
+        );
+
+        if (bedExists) {
+            throw new RuntimeException(
+                    "Bed " + request.getBedNumber() +
+                    " already exists in Room " + room.getRoomNumber()
+            );
+        }
+
         Bed bed = new Bed();
 
         bed.setRoom(room);
@@ -75,6 +87,18 @@ public class BedServiceImpl implements BedService {
 
         Room room = roomRepository.findById(request.getRoomId())
                 .orElseThrow(() -> new RuntimeException("Room not found"));
+
+        boolean bedExists = bedRepository.existsByRoom_IdAndBedNumber(
+                request.getRoomId(),
+                request.getBedNumber()
+        );
+
+        if (bedExists && !bed.getId().equals(id)) {
+            throw new RuntimeException(
+                    "Bed " + request.getBedNumber() +
+                    " already exists in Room " + room.getRoomNumber()
+            );
+        }
 
         bed.setRoom(room);
         bed.setBedNumber(request.getBedNumber());

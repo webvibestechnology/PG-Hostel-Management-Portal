@@ -1,1 +1,381 @@
-<p>complaint-list works!</p>
+<div class="complaint-container">
+
+  <!-- Header -->
+
+  <div class="complaint-header">
+
+    <div class="header-content">
+
+      <div class="header-icon">
+        📢
+      </div>
+
+      <div>
+
+        <h2>Complaint Management</h2>
+
+        <p>
+          Track tenant complaints and resolution status
+        </p>
+
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="add-complaint-button"
+      (click)="addComplaint()">
+
+      + File Complaint
+
+    </button>
+
+  </div>
+
+
+  <!-- Summary -->
+
+  <div class="summary-grid">
+
+    <!-- Total -->
+
+    <div class="summary-card total-card">
+
+      <div class="summary-icon">
+        📋
+      </div>
+
+      <div class="summary-content">
+
+        <span>
+          Total Complaints
+        </span>
+
+        <strong>
+          {{ complaints.length }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Open -->
+
+    <div class="summary-card open-card">
+
+      <div class="summary-icon">
+        !
+      </div>
+
+      <div class="summary-content">
+
+        <span>
+          Open
+        </span>
+
+        <strong>
+          {{
+            complaints.filter(
+              c => c.status.toUpperCase() === 'OPEN'
+            ).length
+          }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- In Progress -->
+
+    <div class="summary-card progress-card">
+
+      <div class="summary-icon">
+        ↻
+      </div>
+
+      <div class="summary-content">
+
+        <span>
+          In Progress
+        </span>
+
+        <strong>
+          {{
+            complaints.filter(
+              c => c.status.toUpperCase() === 'IN_PROGRESS'
+            ).length
+          }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Resolved -->
+
+    <div class="summary-card resolved-card">
+
+      <div class="summary-icon">
+        ✓
+      </div>
+
+      <div class="summary-content">
+
+        <span>
+          Resolved
+        </span>
+
+        <strong>
+          {{
+            complaints.filter(
+              c => c.status.toUpperCase() === 'RESOLVED'
+            ).length
+          }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Filters -->
+
+  <div class="filter-toolbar">
+
+    <div class="filter-title">
+      Complaint History
+    </div>
+
+    <div class="filter-buttons">
+
+      <button
+        type="button"
+        [class.active-filter]="selectedFilter === 'ALL'"
+        (click)="setFilter('ALL')">
+        All
+      </button>
+
+      <button
+        type="button"
+        [class.active-filter]="selectedFilter === 'OPEN'"
+        (click)="setFilter('OPEN')">
+        Open
+      </button>
+
+      <button
+        type="button"
+        [class.active-filter]="selectedFilter === 'IN_PROGRESS'"
+        (click)="setFilter('IN_PROGRESS')">
+        In Progress
+      </button>
+
+      <button
+        type="button"
+        [class.active-filter]="selectedFilter === 'RESOLVED'"
+        (click)="setFilter('RESOLVED')">
+        Resolved
+      </button>
+
+    </div>
+
+    <span class="record-count">
+      {{ filteredComplaints.length }} complaint(s)
+    </span>
+
+  </div>
+
+
+  <!-- Success -->
+
+  <div
+    *ngIf="successMessage"
+    class="success-message">
+
+    {{ successMessage }}
+
+  </div>
+
+
+  <!-- Error -->
+
+  <div
+    *ngIf="errorMessage"
+    class="error-message">
+
+    {{ errorMessage }}
+
+  </div>
+
+
+  <!-- Table -->
+
+  <div class="complaint-table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Tenant Name</th>
+
+          <th>Title</th>
+
+          <th>Status</th>
+
+          <th>Date</th>
+
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let complaint of filteredComplaints;
+            trackBy: trackByComplaintId
+          ">
+
+          <!-- Tenant -->
+
+          <td class="tenant-name">
+
+            {{ getTenantName(complaint) }}
+
+          </td>
+
+
+          <!-- Title -->
+
+          <td class="complaint-title">
+
+            <strong>
+              {{ complaint.title }}
+            </strong>
+
+            <small>
+              {{ complaint.description }}
+            </small>
+
+          </td>
+
+
+          <!-- Status -->
+
+          <td>
+
+            <span
+              class="status-badge"
+              [ngClass]="
+                getStatusClass(complaint.status)
+              ">
+
+              <span class="status-dot"></span>
+
+              {{ formatStatus(complaint.status) }}
+
+            </span>
+
+          </td>
+
+
+          <!-- Date -->
+
+          <td class="complaint-date">
+
+            {{ formatDate(complaint.createdAt) }}
+
+          </td>
+
+
+          <!-- Actions -->
+
+          <td class="actions">
+
+            <select
+              class="status-select"
+              [ngModel]="
+                selectedStatuses[complaint.id!]
+              "
+              (ngModelChange)="
+                selectedStatuses[complaint.id!] = $event
+              ">
+
+              <option value="OPEN">
+                OPEN
+              </option>
+
+              <option value="IN_PROGRESS">
+                IN PROGRESS
+              </option>
+
+              <option value="RESOLVED">
+                RESOLVED
+              </option>
+
+            </select>
+
+
+            <button
+              type="button"
+              class="save-status-button"
+              [disabled]="
+                savingComplaintId === complaint.id
+              "
+              (click)="updateComplaintStatus(complaint.id!)"
+              >
+
+              {{
+                savingComplaintId === complaint.id
+                  ? 'Saving...'
+                  : 'Save'
+              }}
+
+            </button>
+
+          </td>
+
+        </tr>
+
+
+        <!-- Empty -->
+
+        <tr *ngIf="filteredComplaints.length === 0">
+
+          <td
+            colspan="5"
+            class="no-data">
+
+            <div class="empty-icon">
+              📢
+            </div>
+
+            <strong>
+              No complaints found
+            </strong>
+
+            <p>
+              File a complaint to start managing issues.
+            </p>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

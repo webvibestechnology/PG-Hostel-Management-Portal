@@ -4,79 +4,236 @@
 
     <h2>Edit Hostel</h2>
 
-    <form (ngSubmit)="updateHostel()">
+    <!-- Backend / General Error -->
+    <div
+      class="error-message"
+      *ngIf="errorMessage"
+    >
+      {{ errorMessage }}
+    </div>
 
+    <form
+      #hostelForm="ngForm"
+      (ngSubmit)="updateHostel()"
+      novalidate
+    >
+
+      <!-- =========================
+           HOSTEL NAME
+      ========================== -->
       <div class="form-group">
-        <label for="name">Hostel Name</label>
+
+        <label for="name">
+          Hostel Name
+        </label>
+
         <input
           id="name"
           type="text"
           name="name"
           [(ngModel)]="hostel.name"
+          #nameField="ngModel"
           placeholder="Enter hostel name"
           required
         />
+
+        <div
+          class="field-error"
+          *ngIf="nameField.invalid && nameField.touched"
+        >
+          <small
+            *ngIf="nameField.errors?.['required']"
+          >
+            Hostel name is required.
+          </small>
+        </div>
+
       </div>
 
+
+      <!-- =========================
+           ADDRESS
+      ========================== -->
       <div class="form-group">
-        <label for="address">Address</label>
+
+        <label for="address">
+          Address
+        </label>
+
         <textarea
           id="address"
           name="address"
           [(ngModel)]="hostel.address"
+          #addressField="ngModel"
           placeholder="Enter hostel address"
-          required>
-        </textarea>
+          required
+          minlength="5"
+          rows="4"
+        ></textarea>
+
+        <div
+          class="field-error"
+          *ngIf="addressField.invalid && addressField.touched"
+        >
+          <small
+            *ngIf="addressField.errors?.['required']"
+          >
+            Address is required.
+          </small>
+
+          <small
+            *ngIf="addressField.errors?.['minlength']"
+          >
+            Address must be at least 5 characters.
+          </small>
+        </div>
+
       </div>
 
+
+      <!-- =========================
+           PHONE
+      ========================== -->
       <div class="form-group">
-        <label for="phone">Phone</label>
+
+        <label for="phone">
+          Phone
+        </label>
+
         <input
           id="phone"
           type="text"
           name="phone"
           [(ngModel)]="hostel.phone"
-          placeholder="Enter phone number"
+          #phoneField="ngModel"
+          placeholder="Enter 10-digit phone number"
           required
+          pattern="^[0-9]{10}$"
+          maxlength="10"
+          inputmode="numeric"
         />
+
+        <div
+          class="field-error"
+          *ngIf="phoneField.invalid && phoneField.touched"
+        >
+          <small
+            *ngIf="phoneField.errors?.['required']"
+          >
+            Phone number is required.
+          </small>
+
+          <small
+            *ngIf="
+              phoneField.errors?.['pattern'] ||
+              phoneField.errors?.['maxlength']
+            "
+          >
+            Phone number must be exactly 10 digits.
+          </small>
+        </div>
+
       </div>
 
+
+      <!-- =========================
+           TOTAL ROOMS
+      ========================== -->
       <div class="form-group">
-        <label for="totalRooms">Total Rooms</label>
+
+        <label for="totalRooms">
+          Total Rooms
+        </label>
+
         <input
           id="totalRooms"
           type="number"
           name="totalRooms"
           [(ngModel)]="hostel.totalRooms"
+          #roomsField="ngModel"
           min="1"
+          step="1"
           required
         />
+
+        <div
+          class="field-error"
+          *ngIf="roomsField.invalid && roomsField.touched"
+        >
+          <small
+            *ngIf="roomsField.errors?.['required']"
+          >
+            Total rooms is required.
+          </small>
+
+          <small
+            *ngIf="roomsField.errors?.['min']"
+          >
+            Total rooms must be at least 1.
+          </small>
+        </div>
+
       </div>
 
+
+      <!-- =========================
+           TOTAL FLOORS
+      ========================== -->
       <div class="form-group">
-        <label for="totalFloors">Total Floors</label>
+
+        <label for="totalFloors">
+          Total Floors
+        </label>
+
         <input
           id="totalFloors"
           type="number"
           name="totalFloors"
           [(ngModel)]="hostel.totalFloors"
+          #floorsField="ngModel"
           min="1"
+          step="1"
           required
         />
+
+        <div
+          class="field-error"
+          *ngIf="floorsField.invalid && floorsField.touched"
+        >
+          <small
+            *ngIf="floorsField.errors?.['required']"
+          >
+            Total floors is required.
+          </small>
+
+          <small
+            *ngIf="floorsField.errors?.['min']"
+          >
+            Total floors must be at least 1.
+          </small>
+        </div>
+
       </div>
 
+
+      <!-- =========================
+           ACTIONS
+      ========================== -->
       <div class="form-actions">
 
         <button
           type="submit"
-          class="save-button">
+          class="save-button"
+          [disabled]="hostelForm.invalid"
+        >
           Update Hostel
         </button>
 
         <button
           type="button"
           class="cancel-button"
-          (click)="cancel()">
+          (click)="cancel()"
+        >
           Cancel
         </button>
 

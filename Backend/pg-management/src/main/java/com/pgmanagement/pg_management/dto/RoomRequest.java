@@ -1,72 +1,94 @@
 package com.pgmanagement.pg_management.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class RoomRequest {
-	@NotNull(message="Hostel ID is required")
-	private Integer hostelId;
-	
-	@NotBlank(message="Room Numberr is Required")
-	private String roomNumber;
-	
-	private String roomType;
-	private Integer floor;
-	private String status;
-	
-	public RoomRequest () {
-		
-	}
 
-	public RoomRequest (Integer hostelId, String roomNumber, String roomType, Integer floor,String status) {
-		this.hostelId = hostelId;
-		this.roomNumber = roomNumber;
-		this.roomType = roomType;
-		this.floor = floor;
-		this.status = status;
-	}
+    @NotNull(message = "Hostel ID is required")
+    private Integer hostelId;
 
-	public Integer getHostelId() {
-		return hostelId;
-	}
+    @NotBlank(message = "Room Number is required")
+    private String roomNumber;
 
-	public void setHostelId(Integer hostelId) {
-		this.hostelId = hostelId;
-	}
+    private String roomType;
 
-	public String getRoomNumber() {
-		return roomNumber;
-	}
+    private Integer floor;
 
-	public void setRoomNumber(String roomNumber) {
-		this.roomNumber = roomNumber;
-	}
+    private String status;
 
-	public String getRoomType() {
-		return roomType;
-	}
+    @NotNull(message = "Capacity is required")
+    @Min(value = 1, message = "Capacity must be at least 1")
+    private Integer capacity;
 
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
-	}
+    public RoomRequest() {
 
-	public Integer getFloor() {
-		return floor;
-	}
+    }
 
-	public void setFloor(Integer floor) {
-		this.floor = floor;
-	}
+    public RoomRequest(
+            Integer hostelId,
+            String roomNumber,
+            String roomType,
+            Integer floor,
+            String status,
+            Integer capacity) {
 
-	public String getStatus() {
-		return status;
-	}
+        this.hostelId = hostelId;
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.floor = floor;
+        this.status = status;
+        this.capacity = capacity;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
+    public Integer getHostelId() {
+        return hostelId;
+    }
 
+    public void setHostelId(Integer hostelId) {
+        this.hostelId = hostelId;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public Integer getFloor() {
+        return floor;
+    }
+
+    public void setFloor(Integer floor) {
+        this.floor = floor;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 }

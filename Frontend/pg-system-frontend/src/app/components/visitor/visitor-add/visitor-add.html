@@ -1,1 +1,309 @@
-<p>visitor-add works!</p>
+<div class="visitor-add-page">
+
+  <div class="page-header">
+
+    <div>
+      <span class="header-kicker">
+        VISITOR MANAGEMENT
+      </span>
+
+      <h1>Add Visitor</h1>
+
+      <p>
+        Record visitor entry and check-in details.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="back-btn"
+      [disabled]="saving"
+      (click)="cancel()">
+
+      ← Back to Visitors
+
+    </button>
+
+  </div>
+
+  <div class="form-card">
+
+    <div
+      *ngIf="successMessage"
+      class="message success-message">
+
+      {{ successMessage }}
+
+    </div>
+
+    <div
+      *ngIf="errorMessage"
+      class="message error-message">
+
+      {{ errorMessage }}
+
+    </div>
+
+
+    <form
+      #visitorForm="ngForm"
+      (ngSubmit)="saveVisitor()"
+      novalidate>
+
+      <!-- Tenant -->
+
+      <div class="form-group">
+
+        <label for="tenant">
+          Tenant
+          <span>*</span>
+        </label>
+
+        <select
+          id="tenant"
+          name="tenantId"
+          [(ngModel)]="visitor.tenantId"
+          #tenantField="ngModel"
+          [disabled]="saving"
+          required>
+
+          <option [ngValue]="0">
+            Select Tenant
+          </option>
+
+          <option
+            *ngFor="let tenant of tenants"
+            [ngValue]="tenant.id">
+
+            {{ tenant.name }}
+
+          </option>
+
+        </select>
+
+        <div
+          class="field-error"
+          *ngIf="tenantField.touched && visitor.tenantId === 0">
+          <small>Please select a tenant.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Visitor Name -->
+
+      <div class="form-group">
+
+        <label for="visitorName">
+          Visitor Name
+          <span>*</span>
+        </label>
+
+        <input
+          id="visitorName"
+          type="text"
+          name="visitorname"
+          [(ngModel)]="visitor.visitorname"
+          #visitorNameField="ngModel"
+          placeholder="Enter visitor name"
+          maxlength="100"
+          autocomplete="off"
+          [disabled]="saving"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="visitorNameField.invalid && visitorNameField.touched">
+          <small>Visitor name is required.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Visitor Phone -->
+
+      <div class="form-group">
+
+        <label for="visitorPhone">
+          Visitor Phone
+          <span>*</span>
+        </label>
+
+        <input
+          id="visitorPhone"
+          type="tel"
+          name="visitorPhone"
+          [(ngModel)]="visitor.visitorPhone"
+          #visitorPhoneField="ngModel"
+          placeholder="10-digit visitor phone"
+          maxlength="10"
+          pattern="^[0-9]{10}$"
+          inputmode="numeric"
+          autocomplete="off"
+          [disabled]="saving"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="visitorPhoneField.invalid && visitorPhoneField.touched">
+
+          <small *ngIf="visitorPhoneField.errors?.['required']">
+            Visitor phone is required.
+          </small>
+
+          <small *ngIf="visitorPhoneField.errors?.['pattern']">
+            Visitor phone must contain exactly 10 digits.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Purpose -->
+
+      <div class="form-group">
+
+        <label for="purpose">
+          Purpose
+          <span>*</span>
+        </label>
+
+        <input
+          id="purpose"
+          type="text"
+          name="purpose"
+          [(ngModel)]="visitor.purpose"
+          #purposeField="ngModel"
+          placeholder="e.g. Meeting, Family Visit"
+          maxlength="150"
+          [disabled]="saving"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="purposeField.invalid && purposeField.touched">
+          <small>Purpose is required.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Visit Date + Check-in Time -->
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label for="visitDate">
+            Visit Date
+            <span>*</span>
+          </label>
+
+          <input
+            id="visitDate"
+            type="date"
+            name="visitDate"
+            [(ngModel)]="visitor.visitDate"
+            #visitDateField="ngModel"
+            [disabled]="saving"
+            required
+          />
+
+          <div
+            class="field-error"
+            *ngIf="visitDateField.invalid && visitDateField.touched">
+            <small>Visit date is required.</small>
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="checkInTime">
+            Check-in Time
+            <span>*</span>
+          </label>
+
+          <input
+            id="checkInTime"
+            type="time"
+            name="checkInTime"
+            [(ngModel)]="visitor.checkInTime"
+            #checkInTimeField="ngModel"
+            [disabled]="saving"
+            required
+          />
+
+          <div
+            class="field-error"
+            *ngIf="checkInTimeField.invalid && checkInTimeField.touched">
+            <small>Check-in time is required.</small>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Info -->
+
+      <div class="info-box">
+
+        <span class="info-icon">✓</span>
+
+        <div>
+          <strong>Visitor Check-in</strong>
+
+          <p>
+            Check-out time will remain empty until the visitor is checked out.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- Actions -->
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          [disabled]="saving"
+          (click)="cancel()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="submit"
+          class="save-btn"
+          [disabled]="
+            saving ||
+            visitorForm.invalid ||
+            visitor.tenantId === 0
+          ">
+
+          <span *ngIf="!saving">
+            Add Visitor
+          </span>
+
+          <span *ngIf="saving">
+            Saving...
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

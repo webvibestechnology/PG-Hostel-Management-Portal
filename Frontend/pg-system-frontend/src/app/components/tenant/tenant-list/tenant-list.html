@@ -1,1 +1,296 @@
-<p>tenant-list works!</p>
+<div class="tenant-container">
+
+  <!-- =========================
+       Page Header
+       ========================= -->
+
+  <div class="tenant-header">
+
+    <div class="header-content">
+
+      <div class="header-icon">
+        👥
+      </div>
+
+      <div>
+        <h2>Tenant Management</h2>
+
+        <p>
+          Manage tenants, their details and current status
+        </p>
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="add-tenant-button"
+      (click)="addTenant()">
+      + Add Tenant
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       Summary Cards
+       ========================= -->
+
+  <div class="summary-grid">
+
+    <!-- Total Tenants -->
+
+    <div class="summary-card total-card">
+
+      <div class="summary-card-icon">
+        👥
+      </div>
+
+      <div class="summary-card-content">
+
+        <span class="summary-title">
+          Total Tenants
+        </span>
+
+        <strong>
+          {{ totalTenants }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Active Tenants -->
+
+    <div class="summary-card active-card">
+
+      <div class="summary-card-icon">
+        ✓
+      </div>
+
+      <div class="summary-card-content">
+
+        <span class="summary-title">
+          Active Tenants
+        </span>
+
+        <strong>
+          {{ activeTenants }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- Inactive Tenants -->
+
+    <div class="summary-card inactive-card">
+
+      <div class="summary-card-icon">
+        !
+      </div>
+
+      <div class="summary-card-content">
+
+        <span class="summary-title">
+          Inactive Tenants
+        </span>
+
+        <strong>
+          {{ inactiveTenants }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       Filter Toolbar
+       ========================= -->
+
+  <div class="tenant-toolbar">
+
+    <label class="active-filter">
+
+      <input
+        type="checkbox"
+        [(ngModel)]="showActiveOnly"
+      />
+
+      <span class="filter-text">
+        Show Active Only
+      </span>
+
+    </label>
+
+    <span class="record-info">
+      Showing {{ filteredTenants.length }} tenant(s)
+    </span>
+
+  </div>
+
+
+  <!-- =========================
+       Success Message
+       ========================= -->
+
+  <div
+    *ngIf="successMessage"
+    class="success-message">
+    {{ successMessage }}
+  </div>
+
+
+  <!-- =========================
+       Tenant Table
+       ========================= -->
+
+  <div class="tenant-table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Name</th>
+
+          <th>Email</th>
+
+          <th>Phone</th>
+
+          <th>Status</th>
+
+          <th>Join Date</th>
+
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let tenant of filteredTenants;
+            trackBy: trackByTenantId
+          ">
+
+          <!-- Name -->
+
+          <td class="tenant-name">
+            {{ tenant.name }}
+          </td>
+
+
+          <!-- Email -->
+
+          <td class="tenant-email">
+            {{ tenant.email }}
+          </td>
+
+
+          <!-- Phone -->
+
+          <td>
+            {{ tenant.phone }}
+          </td>
+
+
+          <!-- Status -->
+
+          <td>
+
+            <span
+              class="status-badge"
+              [ngClass]="getStatusClass(tenant.status)">
+
+              <span class="status-dot"></span>
+
+              {{ tenant.status || 'UNKNOWN' }}
+
+            </span>
+
+          </td>
+
+
+          <!-- Join Date -->
+
+          <td class="join-date">
+
+            {{ tenant.joinDate | date:'dd MMM yyyy' }}
+
+          </td>
+
+
+          <!-- Actions -->
+
+          <td class="actions">
+
+            <button
+              type="button"
+              class="edit-button"
+              (click)="editTenant(tenant.id!)">
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="delete-button"
+              [disabled]="
+                deletingTenantId === tenant.id ||
+                tenant.status === 'INACTIVE'
+              "
+              (click)="deleteTenant(tenant.id!)">
+
+              {{
+                tenant.status === 'INACTIVE'
+                  ? 'Inactive'
+                  : 'Deactivate'
+              }}
+
+            </button>
+
+          </td>
+
+        </tr>
+
+
+        <!-- Empty State -->
+
+        <tr *ngIf="filteredTenants.length === 0">
+
+          <td
+            colspan="6"
+            class="no-data">
+
+            <div class="empty-state-icon">
+              👤
+            </div>
+
+            <strong>
+              No tenants found
+            </strong>
+
+            <p>
+              Add a tenant to start managing tenant records.
+            </p>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

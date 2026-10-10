@@ -84,3 +84,14 @@
 .cancel-button:hover {
   background-color: #4b5563;
 }
+.field-error {
+  margin-top: 6px;
+}
+
+.field-error small {
+  display: block;
+  color: #e03131;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}

@@ -1,1 +1,136 @@
-<p>notice-list works!</p>
+<div class="notice-page">
+
+  <!-- Header -->
+  <div class="page-header">
+
+    <div class="header-text">
+      <span class="header-kicker">COMMUNICATION</span>
+
+      <h1>Notice Board</h1>
+
+      <p>
+        Keep residents informed with important updates and announcements.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="add-notice-btn"
+      (click)="addNotice()">
+      <span class="plus-icon">+</span>
+      Create Notice
+    </button>
+
+  </div>
+
+  <!-- Messages -->
+  <div
+    *ngIf="successMessage"
+    class="message success-message">
+    {{ successMessage }}
+  </div>
+
+  <div
+    *ngIf="errorMessage"
+    class="message error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading -->
+  <div
+    *ngIf="loading"
+    class="loading-box">
+
+    <div class="spinner"></div>
+
+    <p>Loading notices...</p>
+
+  </div>
+
+  <!-- Notice Cards -->
+  <div
+    *ngIf="!loading && notices.length > 0"
+    class="notice-grid">
+
+    <div
+      class="notice-card"
+      *ngFor="let notice of notices; trackBy: trackByNoticeId">
+
+      <div class="card-top">
+
+        <div class="notice-icon">
+          !
+        </div>
+
+        <div class="notice-date">
+          {{ formatDate(notice.createdAt) }}
+        </div>
+
+      </div>
+
+      <div class="notice-body">
+
+        <h2>
+          {{ notice.title }}
+        </h2>
+
+        <p class="notice-content">
+          {{ getContentPreview(notice.content) }}
+        </p>
+
+      </div>
+
+      <div class="card-footer">
+
+        <span class="audience">
+          <span class="audience-dot"></span>
+          {{ notice.targetAudience || 'ALL' }}
+        </span>
+
+        <button
+          type="button"
+          class="delete-btn"
+          [disabled]="deletingNoticeId === notice.id"
+          (click)="notice.id !== undefined && deleteNotice(notice.id)">
+
+          <span *ngIf="deletingNoticeId !== notice.id">
+            Delete
+          </span>
+
+          <span *ngIf="deletingNoticeId === notice.id">
+            Deleting...
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="!loading && notices.length === 0"
+    class="empty-state">
+
+    <div class="empty-icon">
+      📢
+    </div>
+
+    <h2>No Notices Yet</h2>
+
+    <p>
+      There are no notices on the board right now.
+    </p>
+
+    <button
+      type="button"
+      class="empty-add-btn"
+      (click)="addNotice()">
+      Create First Notice
+    </button>
+
+  </div>
+
+</div>

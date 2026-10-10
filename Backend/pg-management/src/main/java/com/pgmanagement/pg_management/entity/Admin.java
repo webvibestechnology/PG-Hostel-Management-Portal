@@ -1,5 +1,7 @@
 package com.pgmanagement.pg_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ public class Admin {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -27,7 +30,11 @@ public class Admin {
     public Admin() {
     }
 
-    public Admin(String username, String password, String email) {
+    public Admin(
+            String username,
+            String password,
+            String email) {
+
         this.username = username;
         this.password = password;
         this.email = email;

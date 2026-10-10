@@ -1,1 +1,325 @@
-<p>tenant-edit works!</p>
+<div class="tenant-form-container">
+
+  <div class="form-card">
+
+    <!-- Header -->
+
+    <div class="form-header">
+
+      <div class="form-icon">
+        ✏️
+      </div>
+
+      <div>
+        <h2>Edit Tenant</h2>
+
+        <p>
+          Update tenant information and current status
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- Error -->
+
+    <div
+      *ngIf="errorMessage"
+      class="error-message">
+
+      {{ errorMessage }}
+
+    </div>
+
+
+    <form
+      #tenantForm="ngForm"
+      (ngSubmit)="updateTenant()"
+      novalidate>
+
+      <!-- Name -->
+
+      <div class="form-group">
+
+        <label for="name">
+          Full Name
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          name="name"
+          [(ngModel)]="tenant.name"
+          #nameField="ngModel"
+          placeholder="Enter tenant name"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="nameField.invalid && nameField.touched">
+          <small>Name is required.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Email -->
+
+      <div class="form-group">
+
+        <label for="email">
+          Email Address
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="tenant.email"
+          #emailField="ngModel"
+          placeholder="Enter email address"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="emailField.invalid && emailField.touched">
+
+          <small *ngIf="emailField.errors?.['required']">
+            Email is required.
+          </small>
+
+          <small *ngIf="emailField.errors?.['email']">
+            Please enter a valid email address.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Phone -->
+
+      <div class="form-group">
+
+        <label for="phone">
+          Phone Number
+        </label>
+
+        <input
+          id="phone"
+          type="text"
+          name="phone"
+          [(ngModel)]="tenant.phone"
+          #phoneField="ngModel"
+          placeholder="10-digit phone number"
+          maxlength="10"
+          pattern="^[0-9]{10}$"
+          inputmode="numeric"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="phoneField.invalid && phoneField.touched">
+
+          <small *ngIf="phoneField.errors?.['required']">
+            Phone number is required.
+          </small>
+
+          <small *ngIf="phoneField.errors?.['pattern']">
+            Phone number must contain exactly 10 digits.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Address -->
+
+      <div class="form-group">
+
+        <label for="address">
+          Address
+        </label>
+
+        <textarea
+          id="address"
+          name="address"
+          [(ngModel)]="tenant.address"
+          #addressField="ngModel"
+          placeholder="Enter tenant address"
+          required>
+        </textarea>
+
+        <div
+          class="field-error"
+          *ngIf="addressField.invalid && addressField.touched">
+          <small>Address is required.</small>
+        </div>
+
+      </div>
+
+
+      <!-- Aadhaar -->
+
+      <div class="form-group">
+
+        <label for="aadhaarNumber">
+          Aadhaar Number
+        </label>
+
+        <input
+          id="aadhaarNumber"
+          type="text"
+          name="aadhaarNumber"
+          [(ngModel)]="tenant.aadhaarNumber"
+          #aadhaarField="ngModel"
+          placeholder="12-digit Aadhaar number"
+          maxlength="12"
+          pattern="^[0-9]{12}$"
+          inputmode="numeric"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="aadhaarField.invalid && aadhaarField.touched">
+
+          <small *ngIf="aadhaarField.errors?.['required']">
+            Aadhaar number is required.
+          </small>
+
+          <small *ngIf="aadhaarField.errors?.['pattern']">
+            Aadhaar number must contain exactly 12 digits.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Emergency Contact -->
+
+      <div class="form-group">
+
+        <label for="emergencyContact">
+          Emergency Contact
+        </label>
+
+        <input
+          id="emergencyContact"
+          type="text"
+          name="emergencyContact"
+          [(ngModel)]="tenant.emergencyContact"
+          #emergencyField="ngModel"
+          placeholder="10-digit emergency contact"
+          maxlength="10"
+          pattern="^[0-9]{10}$"
+          inputmode="numeric"
+          required
+        />
+
+        <div
+          class="field-error"
+          *ngIf="emergencyField.invalid && emergencyField.touched">
+
+          <small *ngIf="emergencyField.errors?.['required']">
+            Emergency contact is required.
+          </small>
+
+          <small *ngIf="emergencyField.errors?.['pattern']">
+            Emergency contact must contain exactly 10 digits.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Join Date -->
+
+      <div class="form-group">
+
+        <label for="joinDate">
+          Join Date
+        </label>
+
+        <input
+          id="joinDate"
+          type="text"
+          name="joinDate"
+          [value]="formatJoinDate()"
+          readonly
+          class="readonly-field"
+        />
+
+        <small class="field-hint">
+          Join date is set automatically when the tenant is created.
+        </small>
+
+      </div>
+
+
+      <!-- Status -->
+
+      <div class="form-group">
+
+        <label for="status">
+          Status
+        </label>
+
+        <select
+          id="status"
+          name="status"
+          [(ngModel)]="tenant.status"
+          required>
+
+          <option value="">
+            Select Status
+          </option>
+
+          <option value="ACTIVE">
+            ACTIVE
+          </option>
+
+          <option value="INACTIVE">
+            INACTIVE
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Actions -->
+
+      <div class="form-actions">
+
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="saving || tenantForm.invalid">
+
+          {{ saving ? 'Updating...' : 'Update Tenant' }}
+
+        </button>
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()">
+
+          Cancel
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

@@ -1,0 +1,789 @@
+/* =========================================================
+   TENANT MANAGEMENT PAGE
+   ========================================================= */
+
+.tenant-container {
+  min-height: 100vh;
+
+  padding: 30px 35px;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(91, 43, 224, 0.08),
+      transparent 32%
+    ),
+    #f5f7fb;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.tenant-header {
+  width: 92%;
+
+  margin: 0 auto 24px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+.header-content {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+.header-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ede7ff,
+      #ddd2ff
+    );
+
+  border: 1px solid #cfc1ff;
+
+  font-size: 28px;
+
+  box-shadow:
+    0 6px 14px rgba(91, 43, 224, 0.10);
+}
+
+.tenant-header h2 {
+  margin: 0;
+
+  color: #17233b;
+
+  font-size: 31px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.2px;
+}
+
+.tenant-header p {
+  margin: 5px 0 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   ADD TENANT BUTTON
+   ========================================================= */
+
+.add-tenant-button {
+  padding: 12px 23px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6d3df5,
+      #5124d6
+    );
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 14px rgba(91, 43, 224, 0.20);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add-tenant-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 18px rgba(91, 43, 224, 0.27);
+}
+
+
+/* =========================================================
+   SUMMARY GRID
+   ========================================================= */
+
+.summary-grid {
+  width: 92%;
+
+  margin: 0 auto 20px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+.summary-card {
+  padding: 19px 20px;
+
+  border-radius: 14px;
+
+  border: 1px solid;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+}
+
+
+/* Total */
+
+.total-card {
+  background:
+    linear-gradient(
+      135deg,
+      #f7f4ff,
+      #ede7ff
+    );
+
+  border-color: #d9ceff;
+
+  box-shadow:
+    0 6px 18px rgba(91, 43, 224, 0.08);
+}
+
+
+/* Active */
+
+.active-card {
+  background:
+    linear-gradient(
+      135deg,
+      #f0fff5,
+      #e2f7e9
+    );
+
+  border-color: #b9e6c8;
+
+  box-shadow:
+    0 6px 18px rgba(31, 157, 85, 0.08);
+}
+
+
+/* Inactive */
+
+.inactive-card {
+  background:
+    linear-gradient(
+      135deg,
+      #fff5f4,
+      #fde7e6
+    );
+
+  border-color: #f1c0bd;
+
+  box-shadow:
+    0 6px 18px rgba(229, 57, 53, 0.07);
+}
+
+
+/* Summary Icons */
+
+.summary-card-icon {
+  width: 52px;
+
+  height: 52px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 12px;
+
+  font-size: 24px;
+
+  font-weight: 800;
+}
+
+.total-card .summary-card-icon {
+  background: #e5dcff;
+
+  color: #5b2be0;
+}
+
+.active-card .summary-card-icon {
+  background: #d2f0dc;
+
+  color: #168044;
+}
+
+.inactive-card .summary-card-icon {
+  background: #f8d8d5;
+
+  color: #c62828;
+}
+
+
+/* Summary Content */
+
+.summary-card-content {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.summary-title {
+  color: #6b7280;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
+}
+
+.summary-card-content strong {
+  color: #17233b;
+
+  font-size: 29px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.tenant-toolbar {
+  width: 92%;
+
+  margin: 0 auto 16px;
+
+  padding: 13px 17px;
+
+  background: white;
+
+  border: 1px solid #e5e9f0;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  box-shadow:
+    0 4px 12px rgba(31, 41, 55, 0.05);
+}
+
+.active-filter {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  cursor: pointer;
+
+  color: #263552;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.active-filter input {
+  width: 17px;
+  height: 17px;
+
+  accent-color: #5b2be0;
+
+  cursor: pointer;
+}
+
+.filter-text {
+  user-select: none;
+}
+
+.record-info {
+  color: #6b7280;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+   ========================================================= */
+
+.success-message {
+  width: 92%;
+
+  margin: 0 auto 16px;
+
+  padding: 11px 16px;
+
+  background: #f1edff;
+
+  color: #4720b3;
+
+  border: 1px solid #5b2be0;
+
+  border-radius: 8px;
+
+  text-align: center;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  animation: successSlide 0.3s ease-in-out;
+}
+
+@keyframes successSlide {
+
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   TABLE CARD
+   ========================================================= */
+
+.tenant-table-card {
+  width: 92%;
+
+  margin: 0 auto;
+
+  background: white;
+
+  border-radius: 14px;
+
+  border: 1px solid #e5e9f0;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 7px 22px rgba(31, 41, 55, 0.09);
+}
+
+.tenant-table-card table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+
+/* Header */
+
+.tenant-table-card thead {
+  background:
+    linear-gradient(
+      180deg,
+      #f5f6fa,
+      #edf0f5
+    );
+}
+
+.tenant-table-card th {
+  padding: 17px 18px;
+
+  color: #263552;
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  text-align: left;
+
+  border-bottom: 2px solid #dfe4ec;
+
+  white-space: nowrap;
+}
+
+
+/* Body */
+
+.tenant-table-card td {
+  padding: 17px 18px;
+
+  color: #374151;
+
+  font-size: 14px;
+
+  border-bottom: 1px solid #edf0f4;
+
+  vertical-align: middle;
+}
+
+.tenant-table-card tbody tr {
+  transition:
+    background-color 0.2s ease;
+}
+
+.tenant-table-card tbody tr:nth-child(even) {
+  background: #fbfcfd;
+}
+
+.tenant-table-card tbody tr:hover {
+  background: #f6f2ff;
+}
+
+
+/* Tenant Name */
+
+.tenant-name {
+  color: #17233b !important;
+
+  font-weight: 800;
+}
+
+
+/* Email */
+
+.tenant-email {
+  color: #4c31a8 !important;
+
+  font-weight: 600;
+}
+
+
+/* Join date */
+
+.join-date {
+  color: #5f6875 !important;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  min-width: 93px;
+
+  justify-content: center;
+
+  padding: 7px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.4px;
+
+  text-transform: uppercase;
+}
+
+.status-dot {
+  width: 7px;
+
+  height: 7px;
+
+  border-radius: 50%;
+
+  display: inline-block;
+}
+
+
+/* Active */
+
+.status-active {
+  background: #e2f7e9;
+
+  color: #16743d;
+
+  border: 1px solid #94d9aa;
+}
+
+.status-active .status-dot {
+  background: #1f9d55;
+}
+
+
+/* Inactive */
+
+.status-inactive {
+  background: #fde7e6;
+
+  color: #b4231d;
+
+  border: 1px solid #efa8a3;
+}
+
+.status-inactive .status-dot {
+  background: #e53935;
+}
+
+
+/* Default */
+
+.status-default {
+  background: #edf0f3;
+
+  color: #5b6470;
+
+  border: 1px solid #d4d9df;
+}
+
+.status-default .status-dot {
+  background: #7b8490;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.actions {
+  white-space: nowrap;
+}
+
+
+/* Edit */
+
+.edit-button {
+  min-width: 68px;
+
+  padding: 8px 14px;
+
+  margin-right: 8px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  background: #1976d2;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.edit-button:hover {
+  background: #1565c0;
+
+  transform: translateY(-1px);
+}
+
+
+/* Deactivate */
+
+.delete-button {
+  min-width: 92px;
+
+  padding: 8px 14px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  background: #e53935;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.delete-button:hover {
+  background: #c62828;
+
+  transform: translateY(-1px);
+}
+
+.delete-button:disabled {
+  background: #a7a7a7;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.no-data {
+  padding: 50px 20px !important;
+
+  text-align: center !important;
+
+  color: #6b7280 !important;
+}
+
+.empty-state-icon {
+  margin-bottom: 8px;
+
+  font-size: 30px;
+}
+
+.no-data strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #263552;
+
+  font-size: 17px;
+}
+
+.no-data p {
+  margin: 0;
+
+  color: #8a929e;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .summary-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .inactive-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .tenant-container {
+    padding: 20px;
+  }
+
+  .tenant-header {
+    width: 100%;
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .add-tenant-button {
+    width: 100%;
+  }
+
+  .summary-grid,
+  .tenant-toolbar,
+  .tenant-table-card,
+  .success-message {
+    width: 100%;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inactive-card {
+    grid-column: auto;
+  }
+
+  .tenant-toolbar {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 8px;
+  }
+
+  .tenant-table-card {
+    overflow-x: auto;
+  }
+
+  .tenant-table-card table {
+    min-width: 900px;
+  }
+}

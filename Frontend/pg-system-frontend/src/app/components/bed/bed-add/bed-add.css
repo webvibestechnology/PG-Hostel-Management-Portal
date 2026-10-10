@@ -1,0 +1,319 @@
+.bed-form-container {
+  min-height: 100vh;
+
+  padding: 35px;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(91, 43, 224, 0.08),
+      transparent 35%
+    ),
+    #f5f7fb;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  box-sizing: border-box;
+}
+
+/* Form Card */
+
+.form-card {
+  width: 100%;
+  max-width: 650px;
+
+  padding: 32px;
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  border: 1px solid #e7eaf0;
+
+  box-shadow:
+    0 10px 28px rgba(31, 41, 55, 0.10);
+}
+
+/* Header */
+
+.form-header {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 28px;
+
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.form-icon {
+  width: 54px;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #f1edff;
+
+  border: 1px solid #d7cbff;
+
+  font-size: 26px;
+}
+
+.form-header h2 {
+  margin: 0;
+
+  color: #17233b;
+
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.form-header p {
+  margin: 5px 0 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+/* Error */
+
+.error-message {
+  margin-bottom: 20px;
+
+  padding: 12px 15px;
+
+  background: #fde7e6;
+
+  color: #a12621;
+
+  border: 1px solid #efa8a3;
+
+  border-radius: 8px;
+
+  text-align: center;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Form group */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #263552;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Inputs */
+
+.form-group input,
+.form-group select {
+  width: 100%;
+
+  min-height: 46px;
+
+  padding: 11px 13px;
+
+  border: 1px solid #cfd5df;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #1f2937;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  font-size: 15px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #5b2be0;
+
+  box-shadow:
+    0 0 0 3px rgba(91, 43, 224, 0.12);
+}
+
+.form-group input::placeholder {
+  color: #9ca3af;
+}
+
+/* Price */
+
+.price-input {
+  position: relative;
+}
+
+.price-input span {
+  position: absolute;
+
+  left: 13px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #16743d;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  z-index: 1;
+}
+
+.price-input input {
+  padding-left: 32px;
+}
+
+/* Actions */
+
+.form-actions {
+  margin-top: 28px;
+
+  display: flex;
+  justify-content: center;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+}
+
+/* Save */
+
+.save-button {
+  min-width: 155px;
+
+  min-height: 44px;
+
+  padding: 10px 22px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: linear-gradient(
+    135deg,
+    #6d3df5,
+    #5124d6
+  );
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 12px rgba(91, 43, 224, 0.18);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.save-button:hover {
+  transform: translateY(-1px);
+
+  background: linear-gradient(
+    135deg,
+    #5e2fe8,
+    #4320bd
+  );
+
+  box-shadow:
+    0 8px 16px rgba(91, 43, 224, 0.24);
+}
+
+/* Cancel */
+
+.cancel-button {
+  min-width: 140px;
+
+  min-height: 44px;
+
+  padding: 10px 22px;
+
+  border: 1px solid #cfd5df;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #374151;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cancel-button:hover {
+  background: #f3f4f6;
+
+  border-color: #b9bec8;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+  .bed-form-container {
+    padding: 20px;
+  }
+
+  .form-card {
+    padding: 24px 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .save-button,
+  .cancel-button {
+    width: 100%;
+  }
+}
+.field-error {
+  margin-top: 6px;
+}
+
+.field-error small {
+  display: block;
+  color: #e03131;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}

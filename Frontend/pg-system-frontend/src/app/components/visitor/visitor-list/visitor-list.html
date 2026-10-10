@@ -1,1 +1,205 @@
-<p>visitor-list works!</p>
+<div class="visitor-page">
+
+  <div class="page-header">
+    <div>
+      <span class="header-kicker">VISITOR MANAGEMENT</span>
+
+      <h1>Visitor Log</h1>
+
+      <p>
+        Track visitor check-in and check-out activity.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="add-btn"
+      (click)="addVisitor()">
+
+      <span class="plus">+</span>
+      Add Visitor
+
+    </button>
+  </div>
+
+  <div
+    *ngIf="successMessage"
+    class="message success-message">
+
+    {{ successMessage }}
+
+  </div>
+
+  <div
+    *ngIf="errorMessage"
+    class="message error-message">
+
+    {{ errorMessage }}
+
+  </div>
+
+  <div
+    *ngIf="loading"
+    class="loading-box">
+
+    <div class="spinner"></div>
+
+    <p>Loading visitors...</p>
+
+  </div>
+
+  <div
+    *ngIf="!loading"
+    class="table-card">
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Visitor Name</th>
+            <th>Tenant Name</th>
+            <th>Phone</th>
+            <th>Purpose</th>
+            <th>Date</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr
+            *ngFor="
+              let visitor of visitors;
+              trackBy: trackByVisitorId
+            ">
+
+            <td class="visitor-name">
+              {{ visitor.visitorName }}
+            </td>
+
+            <td>
+              {{ getTenantName(visitor) }}
+            </td>
+
+            <td>
+              {{ visitor.visitorPhone || '-' }}
+            </td>
+
+            <td>
+              {{ visitor.purpose || '-' }}
+            </td>
+
+            <td>
+              {{ formatDate(visitor.visitDate) }}
+            </td>
+
+            <td class="time-cell">
+              {{ formatTime(visitor.checkInTime) }}
+            </td>
+
+            <td class="time-cell">
+
+              <span
+                *ngIf="visitor.checkOutTime"
+                class="checkout-time">
+
+                {{ formatTime(visitor.checkOutTime) }}
+
+              </span>
+
+              <span
+                *ngIf="!visitor.checkOutTime"
+                class="not-checked">
+
+                Not checked out
+
+              </span>
+
+            </td>
+
+            <td class="action-cell">
+
+              <button
+                *ngIf="!visitor.checkOutTime"
+                type="button"
+                class="checkout-btn"
+                [disabled]="checkingOutVisitorId === visitor.id"
+                (click)="
+                  visitor.id !== undefined &&
+                  checkoutVisitor(visitor.id)
+                ">
+
+                <span
+                  *ngIf="checkingOutVisitorId !== visitor.id">
+
+                  Check Out
+
+                </span>
+
+                <span
+                  *ngIf="checkingOutVisitorId === visitor.id">
+
+                  Checking Out...
+
+                </span>
+
+              </button>
+
+              <span
+                *ngIf="visitor.checkOutTime"
+                class="completed-badge">
+
+                Completed
+
+              </span>
+
+            </td>
+
+          </tr>
+
+          <tr *ngIf="visitors.length === 0">
+
+            <td
+              colspan="8"
+              class="empty-cell">
+
+              <div class="empty-content">
+
+                <div class="empty-icon">
+                  👤
+                </div>
+
+                <h3>No Visitors Found</h3>
+
+                <p>
+                  Add a visitor to start the visitor log.
+                </p>
+
+                <button
+                  type="button"
+                  class="empty-add-btn"
+                  (click)="addVisitor()">
+
+                  Add Visitor
+
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
